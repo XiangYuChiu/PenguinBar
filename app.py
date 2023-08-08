@@ -157,7 +157,7 @@ def handle_message(event):
         Money = [item for sublist1 in Money for sublist2 in sublist1 for item in sublist2]
         TotalMoney = datasheet.cell('D5')
         AllMoney = datasheet.cell('D3')
-        reply_arr=MoneyReply.rankspend(reply_arr,AllMoney,TotalMoney.value,MoneyType,Money)
+        reply_arr=MoneyReply.rankspend(reply_arr,AllMoney.value,TotalMoney.value,MoneyType,Money)
         
         
     elif(event.message.text == '記帳類別'):
