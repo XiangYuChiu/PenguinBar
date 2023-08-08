@@ -11,7 +11,7 @@ import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 
-def rankspend(reply_arr,TotalMoney,MoneyType,Money):
+def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
     reply_arr.append(FlexSendMessage(
             alt_text="本月記帳統計",     
             contents={
@@ -57,6 +57,13 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                 "weight": "bold",
                 "size": "xl",
                 "color": "#EA0000"
+              },
+              {
+                "type": "text",
+                "text": str(("{:.2f}".format(round((int(TotalMoney)/int(AllMoney))*100, 2))))+"%",
+                "wrap": true,
+                "color": "#EA0000",
+                "size": "xxs"
               }
             ]
           }
