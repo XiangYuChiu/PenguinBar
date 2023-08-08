@@ -61,7 +61,6 @@ def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
               {
                 "type": "text",
                 "text": str(("{:.2f}".format(round((int(TotalMoney)/int(AllMoney))*100, 2))))+"%",
-                "wrap": true,
                 "color": "#EA0000",
                 "size": "xxs"
               }
