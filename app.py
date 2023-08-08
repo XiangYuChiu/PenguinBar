@@ -62,8 +62,9 @@ def MotorGoogleSheet(dt2,gc):
     return datasheet
     
 def DataToGoogleSheet(gc,dt2,message,datatype): 
+    print("DataToGoogleSheet")
     if datatype == 'Test':
-        TestGoogleSheet(dt2,gc)
+        datasheet=TestGoogleSheet(dt2,gc)
     elif datatype == 'Money':
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
         data_list = message.split(' ')
@@ -77,7 +78,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
             account = "測試帳戶"
             expendituretext = "測試內容"
     elif datatype == 'Motor':
-        MotorGoogleSheet(dt2,gc)
+        datasheet=MotorGoogleSheet(dt2,gc)
     try:        
         values =  [[dt2.strftime("%d")]+data_list]
     except:  
