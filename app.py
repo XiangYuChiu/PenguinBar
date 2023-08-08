@@ -38,7 +38,7 @@ def callback():
 # 傳遞到GoogleSheet所使用的函示庫
 import pygsheets
 def MoneyGoogleSheet(dt2,gc):
-    print('MoneyGoogleSheet')
+    #print('MoneyGoogleSheet')
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = gc.open_by_url(sheet_url)
     try:
@@ -62,27 +62,14 @@ def MotorGoogleSheet(dt2,gc):
     return datasheet
     
 def DataToGoogleSheet(gc,dt2,message,datatype): 
-    print("DataToGoogleSheet")
+    #print("DataToGoogleSheet")
     if datatype == 'Test':
         datasheet=TestGoogleSheet(dt2,gc)
     elif datatype == 'Money':
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
-        data_list = message.split(' ')
-        try:
-            outputtype = data_list[0]
-            account = data_list[1]
-            expendituretext = data_list[2]
-            money = data_list[3]
-        except:
-            outputtype = "測試"
-            account = "測試帳戶"
-            expendituretext = "測試內容"
     elif datatype == 'Motor':
-        datasheet=MotorGoogleSheet(dt2,gc)
-    try:        
-        values =  [[dt2.strftime("%d")]+data_list]
-    except:  
-        values =  [[dt2.strftime("%d"),message]]
+        datasheet=MotorGoogleSheet(dt2,gc)      
+    values =  [[dt2.strftime("%d"),message]]
     print(values,type(values))
     datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727 
 #===============================================================================
@@ -217,7 +204,7 @@ def handle_message(event):
                 except:
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
-            DataToGoogleSheet(gc,dt2,event.message.text,'Money')
+            DataToGoogleSheet(gc,dt2,data_list,'Money')
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
