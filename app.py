@@ -38,7 +38,7 @@ def callback():
 # 傳遞到GoogleSheet所使用的函示庫
 import pygsheets
 def MoneyGoogleSheet(dt2,gc):
-    #print('MoneyGoogleSheet')
+    print('MoneyGoogleSheet')
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = gc.open_by_url(sheet_url)
     try:
@@ -205,7 +205,7 @@ def handle_message(event):
                 account = "測試帳戶"
                 expendituretext = "測試內容"
             money = "NT$ "+money
-            #print(data_list,money)
+            print(data_list,money)
             if(outputtype == '收入' ):          
                 try:
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增收入成功",money,currentTime,outputtype,account,expendituretext)
@@ -217,7 +217,7 @@ def handle_message(event):
                 except:
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
-            DataToGoogleSheet(dt2,event.message.text,'Money')
+            DataToGoogleSheet(gc,dt2,event.message.text,'Money')
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
