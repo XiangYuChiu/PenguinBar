@@ -71,10 +71,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
         datasheet=MotorGoogleSheet(dt2,gc)      
     values =  [[dt2.strftime("%d"),message]]
     print(values,type(values))
-    try:
-        datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727 
-    except:
-        print("資料輸入錯誤")
+    datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727 
 #===============================================================================
 #工具類
 def two_dimensional_list_intto_str(range_of_cells):
