@@ -5,7 +5,7 @@ from linebot.models import *
 
 #from datetime import datetime,timezone,timedelta
 import datetime
-#import logging
+import logging
 import json,OriginalReply,MoneyReply
 
 
@@ -106,7 +106,7 @@ def handle_message(event):
     reply_arr=[]
     global previous_message
     print("input : ",event.message.text,type(event.message.text))
-    #logging.debug('debug message')
+    logging.debug('debug message')
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
     auth_file = "linebotsheet.json"
     gc = pygsheets.authorize(service_file = auth_file)
