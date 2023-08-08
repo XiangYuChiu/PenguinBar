@@ -69,8 +69,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
     elif datatype == 'Motor':
         datasheet=MotorGoogleSheet(dt2,gc)      
-    values =  [[dt2.strftime("%d")]+message]
-    values = [item for sublist in values for item in sublist]
+    values =  [dt2.strftime("%d")]+message
     print(values,type(values))
     datasheet.append_table(values=values)#這一行資料輸入完整 但是會失敗0727 
 #===============================================================================
