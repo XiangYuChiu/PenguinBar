@@ -55,8 +55,8 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                 "type": "text",
                 "text": TotalMoney+"$",
                 "weight": "bold",
-                "margin": "sm",
-                "flex": 0
+                "size": "xl",
+                "color": "#EA0000"
               }
             ]
           }
