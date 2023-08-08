@@ -53,7 +53,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
             "contents": [
               {
                 "type": "text",
-                "text": TotalMoney+"$",
+                "text": TotalMoney+" $",
                 "weight": "bold",
                 "size": "xl",
                 "color": "#EA0000"
@@ -95,7 +95,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[0]+"$",
+                    "text": Money[0]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -122,7 +122,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[1]+"$",
+                    "text": Money[1]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -149,7 +149,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[2]+"$",
+                    "text": Money[2]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -176,7 +176,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[3]+"$",
+                    "text": Money[3]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -203,7 +203,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[4]+"$",
+                    "text": Money[4]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -230,7 +230,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[5]+"$",
+                    "text": Money[5]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -257,7 +257,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[6]+"$",
+                    "text": Money[6]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -284,7 +284,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[7]+"$",
+                    "text": Money[7]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
@@ -311,7 +311,7 @@ def rankspend(reply_arr,TotalMoney,MoneyType,Money):
                   },
                   {
                     "type": "text",
-                    "text": Money[8]+"$",
+                    "text": Money[8]+" $",
                     "size": "sm",
                     "align": "end",
                     "color": "#aaaaaa"
