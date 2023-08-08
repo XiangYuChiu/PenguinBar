@@ -65,7 +65,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
     if datatype == 'Test':
         TestGoogleSheet(dt2,gc)
     elif datatype == 'Money':
-        datasheet = MoneyGoogleSheet(dt2,gc)
+        datasheet,Month = MoneyGoogleSheet(dt2,gc)
         data_list = message.split(' ')
         try:
             outputtype = data_list[0]
