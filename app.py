@@ -70,6 +70,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
     elif datatype == 'Motor':
         datasheet=MotorGoogleSheet(dt2,gc)      
     values =  [[dt2.strftime("%d")]+message]
+    values = [item for sublist in values for item in sublist]
     print(values,type(values))
     datasheet.append_table(values=values)#這一行資料輸入完整 但是會失敗0727 
 #===============================================================================
