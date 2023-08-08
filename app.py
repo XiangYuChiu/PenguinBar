@@ -104,7 +104,7 @@ def two_dimensional_list_intto_str(range_of_cells):
 def handle_message(event):
     reply_arr=[]
     global previous_message
-    print("獲取測試訊息 : ",event.message.text,type(event.message.text))
+    print("input : ",event.message.text,type(event.message.text))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
     auth_file = "linebotsheet.json"
     gc = pygsheets.authorize(service_file = auth_file)
