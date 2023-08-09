@@ -60,7 +60,7 @@ def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
               },
               {
                 "type": "text",
-                "text": str(("{:.2f}".format(round((int(TotalMoney)/int(AllMoney))*100, 2))))+"%",
+                "text": "已花費百分比:"+str(("{:.2f}".format(round((int(TotalMoney)/int(AllMoney))*100, 2))))+"%",
                 "color": "#EA0000",
                 "align": "end",
                 "size": "xxs"
