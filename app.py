@@ -214,6 +214,7 @@ def handle_message(event):
             
             expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
             daymoney = datasheet.cell('O'+int(dt2.strftime("%m")))
+            reply_arr=OriginalReply.textReply(reply_arr,daymoney)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
