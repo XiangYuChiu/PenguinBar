@@ -213,7 +213,8 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             
             expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
-            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-data_list[3]))+"元")
+            daymoney = datasheet.cell('O'+int(dt2.strftime("%m")))
+            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
