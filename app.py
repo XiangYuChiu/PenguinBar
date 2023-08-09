@@ -89,7 +89,7 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #===============================================================================
-def day_lessmoney(dt2,gc,reply_arr):
+def month_lessmoney(dt2,gc,reply_arr):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
     RemainingCost = datasheet.cell('D2')
     Remaining=RemainingCost.value
@@ -138,7 +138,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試失敗")        
     
     elif(event.message.text == '當月剩餘費用'):
-        expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
+        expenses_remaining,reply_arr=month_lessmoney(dt2,gc,reply_arr)
         reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
         if expenses_remaining<=200:
             reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
@@ -212,10 +212,11 @@ def handle_message(event):
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             try:
-                expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
+                expenses_remaining,reply_arr=month_lessmoney(dt2,gc,reply_arr)
+                #reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
                 data = str(int(dt2.strftime("%d")))
                 print(data)
-                daymoney = datasheet.cell(data)
+                daymoney = datasheet.cell('O9')
                 print(daymoney)
                 reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
