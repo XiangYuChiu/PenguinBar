@@ -212,16 +212,7 @@ def handle_message(event):
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
-            
-            
-            expenses_remaining,reply_arr=month_lessmoney(dt2,gc,reply_arr)
-            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
-
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            daymoney = datasheet.cell('D2')
-            reply_arr=OriginalReply.textReply(reply_arr,daymoney.value)
-            reply_arr=OriginalReply.textReply(reply_arr,"每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
-            #reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+            reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
             #textReply(reply_arr,event.message.text)
