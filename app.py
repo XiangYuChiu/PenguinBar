@@ -110,7 +110,8 @@ def month_lessmoney(dt2,gc,reply_arr):
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,reply_arr
-
+    
+expenses_remaining=""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     reply_arr=[]
@@ -212,10 +213,11 @@ def handle_message(event):
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             
+            
             expenses_remaining,reply_arr=month_lessmoney(dt2,gc,reply_arr)
+            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
+
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            #data = str(int(dt2.strftime("%d")))
-            #print(data)
             daymoney = datasheet.cell('D2')
             reply_arr=OriginalReply.textReply(reply_arr,daymoney.value)
             reply_arr=OriginalReply.textReply(reply_arr,"每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
