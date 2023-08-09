@@ -213,7 +213,7 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             
             expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
-            data = 'O'+str(int(dt2.strftime("%d")))
+            data = str(int(dt2.strftime("%d")))
             reply_arr=OriginalReply.textReply(reply_arr,data)
             daymoney = datasheet.cell(data)
             print(daymoney)
