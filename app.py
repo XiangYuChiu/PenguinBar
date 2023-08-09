@@ -89,7 +89,27 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #===============================================================================
+def day_lessmoney(dt2,gc,Month,reply_arr):
+    datasheet,Month = MoneyGoogleSheet(dt2,gc)
+    RemainingCost = datasheet.cell('D2')
+    Remaining=RemainingCost.value
+    RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
+    reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
 
+    day=dt2.strftime("%d")
+    current_date = datetime.datetime.now()# 获取当前日期
+    first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
+        
+    # 获取下个月的第一天
+    if first_day_of_month.month == 12:
+        next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
+    else:
+        next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
+        
+    # 计算当前月份的总天数
+    total_days_in_month = (next_month - first_day_of_month).days
+    expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
+    return expenses_remaining
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -118,25 +138,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試失敗")        
     
     elif(event.message.text == '當月剩餘費用'):
-        datasheet,Month = MoneyGoogleSheet(dt2,gc)
-        RemainingCost = datasheet.cell('D2')
-        Remaining=RemainingCost.value
-        RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
-        reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
-
-        day=dt2.strftime("%d")
-        current_date = datetime.datetime.now()# 获取当前日期
-        first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
-        
-        # 获取下个月的第一天
-        if first_day_of_month.month == 12:
-            next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
-        else:
-            next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
-        
-        # 计算当前月份的总天数
-        total_days_in_month = (next_month - first_day_of_month).days
-        expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
+        expenses_remaining=day_lessmoney(dt2,gc,Month,reply_arr)
         reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
         if expenses_remaining<=200:
             reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
@@ -209,23 +211,9 @@ def handle_message(event):
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            RemainingCost = datasheet.cell('D2')
-            Remaining=RemainingCost.value
-            day=dt2.strftime("%d")
-            current_date = datetime.datetime.now()# 获取当前日期
-            first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
             
-            # 获取下个月的第一天
-            if first_day_of_month.month == 12:
-                next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
-            else:
-            next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
-        
-            # 计算当前月份的总天数
-            total_days_in_month = (next_month - first_day_of_month).days
-            expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
-            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
+            expenses_remaining=day_lessmoney(dt2,gc,Month,reply_arr)
+            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-data_list[3]))+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
