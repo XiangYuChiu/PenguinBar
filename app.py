@@ -217,9 +217,11 @@ def handle_message(event):
                 data = str(int(dt2.strftime("%d")))
                 print(data)
                 daymoney = datasheet.cell('O9')
-                print(daymoney)
+                reply_arr=OriginalReply.textReply(reply_arr,daymoney)
                 reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+                reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+            except:
+                reply_arr=OriginalReply.textReply(reply_arr,"記帳失敗")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
             #textReply(reply_arr,event.message.text)
