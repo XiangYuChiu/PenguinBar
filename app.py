@@ -213,6 +213,7 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             try:
                 expenses_remaining,reply_arr=month_lessmoney(dt2,gc,reply_arr)
+                datasheet,Month = MoneyGoogleSheet(dt2,gc)
                 #reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
                 data = str(int(dt2.strftime("%d")))
                 print(data)
