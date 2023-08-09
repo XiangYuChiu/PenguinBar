@@ -213,8 +213,9 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             
             expenses_remaining,reply_arr=day_lessmoney(dt2,gc,reply_arr)
-            print('O'+str(int(dt2.strftime("%m"))))
-            daymoney = datasheet.cell('O'+str(int(dt2.strftime("%m"))))
+            data = 'O'+str(int(dt2.strftime("%d")))
+            print(data)
+            daymoney = datasheet.cell(data)
             print(daymoney)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining-daymoney.value))+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
