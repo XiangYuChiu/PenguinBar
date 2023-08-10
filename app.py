@@ -216,6 +216,10 @@ def handle_message(event):
 
             try:
                 datasheet,Month = MoneyGoogleSheet(dt2,gc)
+                day=dt2.strftime("%d")
+                TodayMoney = datasheet.cell('O'+str(int(day)))
+                expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
+                '''
                 RemainingCost = datasheet.cell('D2')
                 Remaining=RemainingCost.value
                 RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
@@ -233,7 +237,8 @@ def handle_message(event):
                 # 计算当前月份的总天数
                 total_days_in_month = (next_month - first_day_of_month).days
                 expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
-                TodayMoney = datasheet.cell('O'+str(int(day)))
+                '''
+                
                 reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney.value)))+"元\n今天總花費"+str(TodayMoney.value)+"元")
             except Exception as e:
                 reply_arr=OriginalReply.textReply(reply_arr,e)
