@@ -215,7 +215,7 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['K3:K11'])
+            range_of_cells = datasheet.get_values_batch( ['O10'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             #LineBank = datasheet.cell('I2')
