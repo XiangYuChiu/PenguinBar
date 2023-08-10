@@ -234,14 +234,15 @@ def handle_message(event):
                 # 计算当前月份的总天数
                 total_days_in_month = (next_month - first_day_of_month).days
                 expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
-                reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
+                #reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
                 reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
             except Exception as e:
                 reply_arr=OriginalReply.textReply(reply_arr,e)
+                print(e)
 
             #LineBank = datasheet.cell('I2')
             #TodayMoney = datasheet.cell('O'+str(int(dt2.strftime("%d"))))
-            reply_arr=OriginalReply.textReply(reply_arr,"今日預算剩下:"+str(("{:.2f}".format(RemainingCost-TodayMoney))))
+            #reply_arr=OriginalReply.textReply(reply_arr,"今日預算剩下:"+str(("{:.2f}".format(RemainingCost-TodayMoney))))
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
