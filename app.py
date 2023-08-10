@@ -215,8 +215,8 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            TodayMoney = datasheet.cell('D5')
-            reply_arr=OriginalReply.textReply(reply_arr,"今日預算剩下:"+str(expenses_remaining))
+            TodayMoney = datasheet.cell('O'+int(dt2.strftime("%d")))
+            reply_arr=OriginalReply.textReply(reply_arr,"今日預算剩下:"+str(("{:.2f}".format(RemainingCost-TodayMoney))))
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
