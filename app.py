@@ -215,9 +215,11 @@ def handle_message(event):
             DataToGoogleSheet(gc,dt2,data_list,'Money')
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['O10'])
-            #result_str = two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,range_of_cells)
+            try:
+                LineBank = datasheet.cell('I2')
+            except Exception as e:
+                reply_arr=OriginalReply.textReply(reply_arr,e)
+
             #LineBank = datasheet.cell('I2')
             #TodayMoney = datasheet.cell('O'+str(int(dt2.strftime("%d"))))
             reply_arr=OriginalReply.textReply(reply_arr,"今日預算剩下:"+str(("{:.2f}".format(RemainingCost-TodayMoney))))
