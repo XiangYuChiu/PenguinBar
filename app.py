@@ -139,7 +139,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試失敗")        
     
     elif(event.message.text == '當月剩餘費用'):
-        expenses_remaining,RemainingCost=month_lessmoney(dt2,gc,reply_arr)
+        expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
         reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
         reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
         if expenses_remaining<=200:
