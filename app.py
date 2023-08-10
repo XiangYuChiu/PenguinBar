@@ -234,8 +234,8 @@ def handle_message(event):
                 # 计算当前月份的总天数
                 total_days_in_month = (next_month - first_day_of_month).days
                 expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
-                #reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
-                reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
+                TodayMoney = datasheet.cell('O2')
+                reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining)+str(TodayMoney.value))+"元")
             except Exception as e:
                 reply_arr=OriginalReply.textReply(reply_arr,e)
                 print(e)
