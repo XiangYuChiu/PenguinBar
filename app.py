@@ -92,20 +92,19 @@ def two_dimensional_list_intto_str(range_of_cells):
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
     RemainingCost = datasheet.cell('D2')
-    Remaining=RemainingCost.value
+    Remaining=int(RemainingCost.value)
     RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
-    
-
+                
     day=dt2.strftime("%d")
     current_date = datetime.datetime.now()# 获取当前日期
     first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
-        
+                    
     # 获取下个月的第一天
     if first_day_of_month.month == 12:
         next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
     else:
         next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
-        
+                    
     # 计算当前月份的总天数
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
