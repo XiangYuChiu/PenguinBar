@@ -217,6 +217,7 @@ def handle_message(event):
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             try:
                 LineBank = datasheet.cell('I2')
+                reply_arr=OriginalReply.textReply(reply_arr,LineBank)
             except Exception as e:
                 reply_arr=OriginalReply.textReply(reply_arr,e)
 
