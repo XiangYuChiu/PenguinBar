@@ -213,8 +213,8 @@ def handle_message(event):
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
-            reply_arr=OriginalReply.textReply(reply_arr,"記帳")
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc,reply_arr)
+            reply_arr=OriginalReply.textReply(reply_arr,"記帳")
             reply_arr=OriginalReply.textReply(reply_arr,str(expenses_remaining))
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except:      
