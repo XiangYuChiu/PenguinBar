@@ -184,24 +184,6 @@ def handle_message(event):
         range_of_cells = datasheet.get_values_batch( ['B6:E6'])
         result_str = two_dimensional_list_intto_str(range_of_cells)
         reply_arr=OriginalReply.textReply(reply_arr,result_str)
-    elif(event.message.text == '心智圖'):
-        # 心智图的文本描述
-        mind_map_description = """
-        心智图示例：
-        
-        - 主题 1
-          - 子主题 1.1
-          - 子主题 1.2
-            - 子子主题 1.2.1
-          - 子主题 1.3
-        - 主题 2
-          - 子主题 2.1
-          - 子主题 2.2
-        """
-        
-        # 创建心智图描述的文字消息对象
-        reply_arr=OriginalReply.ImageReply(reply_arr,mind_map_description)
-        #text_message = TextSendMessage(text=mind_map_description)
     else:      
         try:
             #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
