@@ -200,8 +200,8 @@ def handle_message(event):
         """
         
         # 创建心智图描述的文字消息对象
-        #reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        text_message = TextSendMessage(text=mind_map_description)
+        reply_arr=OriginalReply.ImageReply(reply_arr,mind_map_description)
+        #text_message = TextSendMessage(text=mind_map_description)
     else:      
         try:
             #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
