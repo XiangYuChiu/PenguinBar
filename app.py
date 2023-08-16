@@ -149,11 +149,11 @@ def handle_message(event):
         LineBank=[]
         DaHo=[]
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
-        LineBank[0] = datasheet.cell('E11').value
-        DaHo[0] = datasheet.cell('E12').value
+        LineBank.append(datasheet.cell('E11').value)
+        DaHo.append(datasheet.cell('E12').value)
         datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
-        LineBank[1] = datasheet.cell('E9').value
-        DaHo[1] = datasheet.cell('E10').value
+        LineBank.append(datasheet.cell('E9').value)
+        DaHo.append(datasheet.cell('E10').value)
         reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank[0]+LineBank[1])+"元")
         reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo[0]+DaHo[1])+"元")
 
