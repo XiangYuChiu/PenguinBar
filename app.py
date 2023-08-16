@@ -148,12 +148,20 @@ def handle_message(event):
     elif(event.message.text == '當月信用卡費用'):
         LineBank=[]
         DaHo=[]
-        datasheet,Month = MoneyGoogleSheet(dt2,gc)
-        LineBank.append(datasheet.cell('E11').value)
-        DaHo.append(datasheet.cell('E12').value)
-        datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
-        LineBank.append(datasheet.cell('E9').value)
-        DaHo.append(datasheet.cell('E10').value)
+        if(int(dt2.strftime("%d"))>=12):
+            datasheet,Month = MoneyGoogleSheet(dt2,gc)
+            LineBank.append(datasheet.cell('E11').value)
+            DaHo.append(datasheet.cell('E12').value)
+            datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
+            LineBank.append(datasheet.cell('E9').value)
+            DaHo.append(datasheet.cell('E10').value)
+        else:
+            datasheet,Month = MoneyGoogleSheet(dt2,gc)
+            LineBank.append(datasheet.cell('E9').value)
+            DaHo.append(datasheet.cell('E10').value)
+            datasheet,Month = MoneyGoogleSheet(dt2,gc,-1)
+            LineBank.append(datasheet.cell('E11').value)
+            DaHo.append(datasheet.cell('E12').value)
         reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
         reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
 
