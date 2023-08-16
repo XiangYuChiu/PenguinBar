@@ -154,8 +154,8 @@ def handle_message(event):
         datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
         LineBank.append(datasheet.cell('E9').value)
         DaHo.append(datasheet.cell('E10').value)
-        reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+int(LineBank[0]+LineBank[1])+"元")
-        reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+int(DaHo[0]+DaHo[1])+"元")
+        reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0]+LineBank[1]))+"元")
+        reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0]+DaHo[1]))+"元")
 
     elif(event.message.text == '本月記帳統計'):
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
