@@ -146,6 +146,8 @@ def handle_message(event):
         else:
             reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
     elif(event.message.text == '當月信用卡費用'):
+        LineBank=[]
+        DaHo=[]
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
         LineBank[0] = datasheet.cell('E11').value
         DaHo[0] = datasheet.cell('E12').value
