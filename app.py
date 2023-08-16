@@ -37,14 +37,14 @@ def callback():
 # 處理GoogleSheet
 # 傳遞到GoogleSheet所使用的函示庫
 import pygsheets
-def MoneyGoogleSheet(dt2,gc):
+def MoneyGoogleSheet(dt2,gc,move=0):
     #print('MoneyGoogleSheet')
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = gc.open_by_url(sheet_url)
     try:
         Month = dt2.strftime("%m")
         #print(str(int(Month))+"月預算")
-        datasheet = sheet.worksheet_by_title(str(int(Month))+"月預算")
+        datasheet = sheet.worksheet_by_title(str(int(Month)+int(move))+"月預算")
     except:
         print("沒有獲取到資料表")
         datasheet = sheet[1]
@@ -147,10 +147,13 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
     elif(event.message.text == '當月信用卡費用'):
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
-        LineBank = datasheet.cell('I2')
-        DaHo = datasheet.cell('I5')
-        reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank.value)+"元")
-        reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo.value)+"元")
+        LineBank[0] = datasheet.cell('E11').value
+        DaHo[0] = datasheet.cell('E12').value
+        datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
+        LineBank[1] = datasheet.cell('E9').value
+        DaHo[1] = datasheet.cell('E10').value
+        reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank[0]+LineBank[1])+"元")
+        reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo[0]+DaHo[1])+"元")
 
     elif(event.message.text == '本月記帳統計'):
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
