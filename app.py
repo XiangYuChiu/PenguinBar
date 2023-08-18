@@ -236,7 +236,7 @@ def handle_message(event):
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
             #reply_arr=OriginalReply.textReply(reply_arr,str(day))
-            TodayMoney = datasheet.cell('O'+str(int(day))).value
+            TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             print("1",expenses_remaining)
             print("2",TodayMoney)
