@@ -238,7 +238,8 @@ def handle_message(event):
             #reply_arr=OriginalReply.textReply(reply_arr,str(day))
             TodayMoney = datasheet.cell('O'+str(int(day))).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
-            print(expenses_remaining,TodayMoney)
+            print("1",expenses_remaining)
+            print("2",TodayMoney)
             #reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except Exception as e:      
