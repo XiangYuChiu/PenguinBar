@@ -240,8 +240,8 @@ def handle_message(event):
                 
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney.value)))+"元\n今天總花費"+str(TodayMoney.value)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
-        except:      
-            reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q")
+        except Exception as e:      
+            reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
             #textReply(reply_arr,event.message.text)
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
