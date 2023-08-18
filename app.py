@@ -235,6 +235,7 @@ def handle_message(event):
 
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
+            reply_arr=OriginalReply.textReply(reply_arr,str(day))
             TodayMoney = datasheet.cell('O'+str(int(day)))
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
                 
@@ -242,13 +243,11 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except Exception as e:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
-            #textReply(reply_arr,event.message.text)
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
             else:
                 reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
                 previous_message = event.message.text
-            #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
        
     reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
