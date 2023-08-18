@@ -236,10 +236,10 @@ def handle_message(event):
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
             #reply_arr=OriginalReply.textReply(reply_arr,str(day))
-            TodayMoney = datasheet.cell('O'+str(int(day)))
+            TodayMoney = datasheet.cell('O'+str(int(day))).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
-                
-            #reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney.value)))+"元\n今天總花費"+str(TodayMoney.value)+"元")
+            print(expenses_remaining,TodayMoney)
+            #reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except Exception as e:      
             reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
