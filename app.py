@@ -91,7 +91,7 @@ def two_dimensional_list_intto_str(range_of_cells):
     
 def create_dropdown_menu():
     actions = []
-    options=6
+    options = ['選項 1', '選項 2', '選項 3', '選項 4']
     for option in options:
         action = MessageTemplateAction(label=option, text=option)
         actions.append(action)
