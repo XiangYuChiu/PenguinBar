@@ -264,7 +264,7 @@ def handle_message(event):
                 reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
                 previous_message = event.message.text
        
-    reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
+    #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
