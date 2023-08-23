@@ -88,6 +88,18 @@ def two_dimensional_list_intto_str(range_of_cells):
     # 去除字符串末尾多余的空格
     result_str = result_str.strip()
     return result_str
+    
+def create_dropdown_menu():
+    actions = [
+        MessageTemplateAction(label='選項 1', text='選項 1'),
+        MessageTemplateAction(label='選項 2', text='選項 2'),
+        MessageTemplateAction(label='選項 3', text='選項 3')
+    ]
+    
+    buttons_template = ButtonsTemplate(title='請選擇一個選項', actions=actions)
+    template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
+    
+    return template_message
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
@@ -199,7 +211,10 @@ def handle_message(event):
         range_of_cells = datasheet.get_values_batch( ['C14:F14'])
         result_str = two_dimensional_list_intto_str(range_of_cells)
         reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        
+
+    elif(event.message.text == '下拉式選單'):
+        dropdown_menu = create_dropdown_menu()
+        reply_arr = dropdown_menu
     elif(event.message.text == '汽機車格式'):
         datasheet = MotorGoogleSheet(dt2,gc)
         range_of_cells = datasheet.get_values_batch( ['B6:E6'])
