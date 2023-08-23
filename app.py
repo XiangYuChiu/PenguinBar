@@ -90,6 +90,7 @@ def two_dimensional_list_intto_str(range_of_cells):
     return result_str
     
 def create_dropdown_menu():
+    '''
     actions = [
         MessageTemplateAction(label='選項 1', text='選項 1'),
         MessageTemplateAction(label='選項 2', text='選項 2'),
@@ -98,8 +99,25 @@ def create_dropdown_menu():
     
     buttons_template = ButtonsTemplate(title='請選擇一個選項', actions=actions)
     template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
-    
-    return template_message
+    '''
+    buttons_template_message = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            title='Menu',
+            text='請選擇地區',
+            actions=[
+                MessageTemplateAction(
+                    label='選項一',
+                    text='option one',
+                ),
+                MessageTemplateAction(
+                    label='option two',
+                    text='選項二',
+                )
+            ]
+        )
+    )
+    return buttons_template_message
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
