@@ -168,7 +168,7 @@ def handle_message(event):
                 reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
             else:
                 reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
-            
+            print("當月剩餘費用結束")
         elif(event.message.text == '當月信用卡費用'):
             LineBank=[]
             DaHo=[]
