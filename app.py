@@ -214,7 +214,8 @@ def handle_message(event):
 
     elif(event.message.text == '下拉式選單'):
         dropdown_menu = create_dropdown_menu()
-        reply_arr = dropdown_menu
+        #reply_arr = dropdown_menu
+        reply_arr.append(dropdown_menu)
     elif(event.message.text == '汽機車格式'):
         datasheet = MotorGoogleSheet(dt2,gc)
         range_of_cells = datasheet.get_values_batch( ['B6:E6'])
