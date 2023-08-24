@@ -175,7 +175,7 @@ def Remaining_charges_for_the_month(reply_arr,dt2,gc):
     else:
         reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
     return reply_arr
-       
+''' 
 elif(event.message.text == '當月信用卡費用'):
             LineBank=[]
             DaHo=[]
@@ -230,3 +230,4 @@ elif(event.message.text == '記帳格式'):
             range_of_cells = datasheet.get_values_batch( ['C14:F14'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
+'''
