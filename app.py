@@ -137,20 +137,8 @@ def handle_message(event):
         dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
         dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
         currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
-        
-        if(event.message.text == '123'):   #獲取測試訊息
-            reply_arr=OriginalReply.textReply(reply_arr,"獲取測試訊息")
-        elif(event.message.text == 'q'):
-            reply_arr=OriginalReply.quickReply(reply_arr)           
-        elif(event.message.text == 'Google Sheet Test'):
-            try:
-                DataToGoogleSheet(currentTime,event.message.text,'Test')
-                reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試成功")
-            except Exception as e:
-                print("GoogleSheet上傳測試失敗 原因:",e)
-                reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試失敗")        
-        
-        elif(event.message.text == '當月剩餘費用'):
+             
+        if(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
