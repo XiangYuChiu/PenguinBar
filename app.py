@@ -218,9 +218,19 @@ def handle_message(event):
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['K3:K11'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
-            dropdown_menu = create_dropdown_menu(result_str)
-            #reply_arr = dropdown_menu
-            reply_arr.append(dropdown_menu)
+            
+            total_items = len(result_str)
+            items_per_dropdown = 4  # 每個下拉選單的選項數
+        
+            num_dropdowns = math.ceil(total_items / items_per_dropdown)
+        
+            for i in range(num_dropdowns):
+                start_idx = i * items_per_dropdown
+                end_idx = (i + 1) * items_per_dropdown
+                options = result_str[start_idx:end_idx]
+                dropdown_menu = create_dropdown_menu(options)
+                #reply_arr = dropdown_menu
+                reply_arr.append(dropdown_menu)
         elif(event.message.text == '汽機車格式'):
             datasheet = MotorGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
