@@ -204,8 +204,9 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        elif(len(event.message.text.split(' '))==4):
-            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳')          
+        elif(previous_message=='記帳'):
+            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳')    
+            previous_message = ""
         else:      
             try:
                 #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
