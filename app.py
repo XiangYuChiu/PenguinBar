@@ -98,23 +98,7 @@ def create_dropdown_menu():
     
     buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
     template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
-    '''
-    template_message = TemplateSendMessage(alt_text='Buttons template',template=ButtonsTemplate(
-            title='Menu',
-            text='請選擇地區',
-            actions=[
-                MessageTemplateAction(
-                    label='選項一',
-                    text='option one',
-                ),
-                MessageTemplateAction(
-                    label='option two',
-                    text='選項二',
-                )
-            ]
-        )
-    )
-    '''
+
     return template_message
 #===============================================================================
 def month_lessmoney(dt2,gc):
