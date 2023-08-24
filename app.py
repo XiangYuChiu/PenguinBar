@@ -243,25 +243,6 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
             previous_message = ""
-            
-        elif(event.message.text=='汽機車紀錄'):
-            reply_arr=OriginalReply.textReply(reply_arr,'進入汽機車紀錄')    
-            previous_message = '汽機車紀錄'
-        elif(previous_message=='汽機車紀錄'):
-            #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
-            data_list = event.message.text.split(' ')
-            maintenance_mileage = data_list[0]
-            maintenance_content = data_list[1]
-            maintenance_cost = data_list[2]
-            maintenance_location = data_list[3]         
-            print(data_list,maintenance_mileage)      
-            try:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增記錄成功",maintenance_cost,currentTime,maintenance_mileage,maintenance_content,maintenance_location)
-            except:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增記錄失敗",maintenance_cost,currentTime,maintenance_mileage,maintenance_content,maintenance_location)               
-            DataToGoogleSheet(gc,dt2,data_list,'Motor')
-            reply_arr=OriginalReply.textReply(reply_arr,"汽機車紀錄成功")
-            previous_message = ""
         else:      
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
