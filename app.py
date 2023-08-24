@@ -121,8 +121,28 @@ def month_lessmoney(dt2,gc):
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
-    
-expenses_remaining=""
+def Motor():           
+    if(event.message.text=='汽機車紀錄'):
+        reply_arr=OriginalReply.textReply(reply_arr,'進入汽機車紀錄')    
+        previous_message = '汽機車紀錄'
+    elif(previous_message=='汽機車紀錄'):
+        #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
+        data_list = event.message.text.split(' ')
+        maintenance_mileage = data_list[0]
+        maintenance_content = data_list[1]
+        maintenance_cost = data_list[2]
+        maintenance_location = data_list[3]         
+        print(data_list,maintenance_mileage)      
+        try:
+            reply_arr=MoneyReply.expenditure(reply_arr,"新增記錄成功",maintenance_cost,currentTime,maintenance_mileage,maintenance_content,maintenance_location)
+        except:
+            reply_arr=MoneyReply.expenditure(reply_arr,"新增記錄失敗",maintenance_cost,currentTime,maintenance_mileage,maintenance_content,maintenance_location)               
+        DataToGoogleSheet(gc,dt2,data_list,'Motor')
+        reply_arr=OriginalReply.textReply(reply_arr,"汽機車紀錄成功")
+        previous_message = ""
+    expenses_remaining=""
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     try:
