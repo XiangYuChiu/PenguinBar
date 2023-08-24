@@ -204,6 +204,8 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
+        elif(len(event.message.text.split(' '))==4):
+            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳')          
         else:      
             try:
                 #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
@@ -241,7 +243,7 @@ def handle_message(event):
                 reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
                 reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
             except Exception as e:      
-                reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
+                #reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
                 if previous_message:
                     reply_arr=OriginalReply.textReply(reply_arr,previous_message)
                 else:
