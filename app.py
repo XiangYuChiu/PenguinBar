@@ -6,7 +6,6 @@ from linebot.models import *
 #from datetime import datetime,timezone,timedelta
 import datetime
 import json,OriginalReply,MoneyReply
-import math
 
 
 app = Flask(__name__)
@@ -214,23 +213,6 @@ def handle_message(event):
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
     
-        elif(event.message.text == '下拉式選單'):
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['K3:K11'])
-            result_str = two_dimensional_list_intto_str(range_of_cells)
-            
-            total_items = len(result_str)
-            items_per_dropdown = 3  # 每個下拉選單的選項數
-        
-            num_dropdowns = math.ceil(total_items / items_per_dropdown)
-        
-            for i in range(num_dropdowns):
-                start_idx = i * items_per_dropdown
-                end_idx = (i + 1) * items_per_dropdown
-                options = result_str[start_idx:end_idx]
-                dropdown_menu = create_dropdown_menu(options)
-                #reply_arr = dropdown_menu
-                reply_arr.append(dropdown_menu)
         elif(event.message.text == '汽機車格式'):
             datasheet = MotorGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
