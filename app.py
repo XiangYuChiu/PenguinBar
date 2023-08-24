@@ -151,6 +151,8 @@ def handle_message(event):
                 reply_arr=OriginalReply.textReply(reply_arr,"GoogleSheet上傳測試失敗")        
         
         elif(event.message.text == '當月剩餘費用'):
+            reply_arr=OriginalReply.Remaining_charges_for_the_month(reply_arr,dt2,gc)
+            '''
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
@@ -158,6 +160,7 @@ def handle_message(event):
                 reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
             else:
                 reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
+            '''
         elif(event.message.text == '當月信用卡費用'):
             LineBank=[]
             DaHo=[]
