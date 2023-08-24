@@ -273,8 +273,9 @@ def handle_message(event):
                 previous_message = event.message.text
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
+    reply_arr=OriginalReply.DefaultQuickReply(reply_arr)  
     print("輸出至Line")
-    reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
+    print(reply_arr)
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
