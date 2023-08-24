@@ -173,19 +173,16 @@ def handle_message(event):
             MoneyType = [item for sublist1 in MoneyType for sublist2 in sublist1 for item in sublist2]
             Money = datasheet.get_values_batch( ['L2:L11'])
             Money = [item for sublist1 in Money for sublist2 in sublist1 for item in sublist2]
-            TotalMoney = datasheet.cell('D5')
-            AllMoney = datasheet.cell('D3')
-            reply_arr=MoneyReply.rankspend(reply_arr,AllMoney.value,TotalMoney.value,MoneyType,Money)
+            TotalMoney = datasheet.cell('D5').value
+            AllMoney = datasheet.cell('D3').value
+            reply_arr=MoneyReply.rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money)
     
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
             LineBank=(datasheet.cell('I2').value)
             DaHo=(datasheet.cell('I5').value)
             reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
             
-            
-            
-            
+                                
         elif(event.message.text == '記帳類別'):
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['K3:K11'])
