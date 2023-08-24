@@ -89,9 +89,10 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
     
-def create_dropdown_menu():
+def create_dropdown_menu(options):
     actions = []
-    options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+    if options == None:
+        options = ['選項 1', '選項 2', '選項 3', '選項 4',]
     for option in options:
         action = MessageTemplateAction(label=option, text=option)
         actions.append(action)
@@ -213,7 +214,10 @@ def handle_message(event):
         reply_arr=OriginalReply.textReply(reply_arr,result_str)
 
     elif(event.message.text == '下拉式選單'):
-        dropdown_menu = create_dropdown_menu()
+        datasheet,Month = MoneyGoogleSheet(dt2,gc)
+        range_of_cells = datasheet.get_values_batch( ['K3:K11'])
+        result_str = two_dimensional_list_intto_str(range_of_cells)
+        dropdown_menu = create_dropdown_menu(result_str)
         #reply_arr = dropdown_menu
         reply_arr.append(dropdown_menu)
     elif(event.message.text == '汽機車格式'):
