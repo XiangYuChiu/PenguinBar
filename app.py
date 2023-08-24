@@ -159,8 +159,8 @@ def handle_message(event):
         currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
              
         if(event.message.text == '當月剩餘費用'):
+            print("當月剩餘費用")
             #reply_arr=MoneyReply.Remaining_charges_for_the_month(reply_arr,dt2,gc)
-            
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
