@@ -206,7 +206,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text=='記帳'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳')    
-            #previous_message = ""
+            previous_message = '記帳'
         elif(previous_message=='記帳'):
             #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
             data_list = event.message.text.split(' ')
