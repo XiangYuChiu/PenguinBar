@@ -220,7 +220,7 @@ def handle_message(event):
             result_str = two_dimensional_list_intto_str(range_of_cells)
             
             total_items = len(result_str)
-            items_per_dropdown = 4  # 每個下拉選單的選項數
+            items_per_dropdown = 3  # 每個下拉選單的選項數
         
             num_dropdowns = math.ceil(total_items / items_per_dropdown)
         
