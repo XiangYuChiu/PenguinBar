@@ -10,7 +10,38 @@ import sys
 import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials as SAC
-
+#===============================================================================
+def month_lessmoney(dt2,gc):
+    datasheet,Month = MoneyGoogleSheet(dt2,gc)
+    RemainingCost = datasheet.cell('D2')
+    Remaining=int(RemainingCost.value)
+    RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
+                
+    day=dt2.strftime("%d")
+    current_date = datetime.datetime.now()# 获取当前日期
+    first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
+                    
+    # 获取下个月的第一天
+    if first_day_of_month.month == 12:
+        next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
+    else:
+        next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
+                    
+    # 计算当前月份的总天数
+    total_days_in_month = (next_month - first_day_of_month).days
+    expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
+    return expenses_remaining,RemainingCost
+#===============================================================================
+def Remaining_charges_for_the_month(reply_arr,dt2,gc):
+    expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
+    reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
+    reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
+    if expenses_remaining<=200:
+        reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
+    else:
+        reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")    
+    return reply_arr
+ 
 def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
     reply_arr.append(FlexSendMessage(
             alt_text="本月記帳統計",     
