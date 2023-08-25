@@ -206,7 +206,7 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        elif(event.message.text == '記帳格式'):
+        elif(event.message.text == '記帳'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳')
             previous_message='進入記帳'
         elif(previous_message == '進入記帳'):
