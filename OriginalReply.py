@@ -23,6 +23,12 @@ def DefaultQuickReply(reply_arr):
         quick_reply=QuickReply(
             items=[ 
                 QuickReplyButton(
+                    action=MessageAction(label="進入記帳",text="進入記帳")
+                    ),
+                QuickReplyButton(
+                    action=MessageAction(label="進入汽機車維護紀錄",text="進入汽機車維護紀錄")
+                    ),
+                QuickReplyButton(
                     action=MessageAction(label="當月剩餘費用",text="當月剩餘費用")
                     ),
                 QuickReplyButton(
