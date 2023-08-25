@@ -207,7 +207,6 @@ def handle_message(event):
         reply_arr=OriginalReply.textReply(reply_arr,result_str)
     else:      
         try:
-            #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
             data_list = event.message.text.split(' ')
             try:
                 outputtype = data_list[0]
