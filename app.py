@@ -2,14 +2,20 @@ from flask import Flask, request, abort
 from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
+
 #from datetime import datetime,timezone,timedelta
 import datetime
 import json,OriginalReply,MoneyReply
+
+
+
 app = Flask(__name__)
+
 # Channel Access Token
 line_bot_api = LineBotApi('RY6oiNHZMTyvJFwpXuUVt2f5IpoM9pxcZOJzF+gwTwaLczarODcnNFt98B+auDkIYsZbiLDxnUTYzMVpf0Lg7F3zeVLVrLoU5kT5JFHBBHMGm+u6pLOHy0LhqV/0k2Q6cMK7P0KrHYu3KxCk0hUwZgdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
 handler = WebhookHandler('e7ebf837ccbd2bacb20c9f90cea2ff0c')
+
 previous_message = ""#記憶以前的訊息
 #===============================================================================
 # 監聽所有來自 /callback 的 Post Request
@@ -26,6 +32,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+
 #===============================================================================
 # 處理GoogleSheet
 # 傳遞到GoogleSheet所使用的函示庫
@@ -47,6 +54,7 @@ def TestGoogleSheet(dt2,gc):
     sheet = gc.open_by_url(sheet_url)
     datasheet = sheet[0]
     return datasheet
+
 def MotorGoogleSheet(dt2,gc): 
     sheet_url = "https://docs.google.com/spreadsheets/d/1CKLgM4DdJ4njJEhMADszGo6skja0As520Lmgb6iwgcc/edit#gid=0"
     sheet = gc.open_by_url(sheet_url)
@@ -111,6 +119,7 @@ def handle_message(event):
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
     auth_file = "linebotsheet.json"
     gc = pygsheets.authorize(service_file = auth_file)
+
     #時間設定
     dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
     dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
@@ -155,6 +164,7 @@ def handle_message(event):
             DaHo.append(datasheet.cell('E12').value)
         reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
         reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
+
     elif(event.message.text == '本月記帳統計'):
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
         MoneyType = datasheet.get_values_batch( ['K2:K11'])
@@ -164,6 +174,7 @@ def handle_message(event):
         TotalMoney = datasheet.cell('D5')
         AllMoney = datasheet.cell('D3')
         reply_arr=MoneyReply.rankspend(reply_arr,AllMoney.value,TotalMoney.value,MoneyType,Money)
+
         datasheet,Month = MoneyGoogleSheet(dt2,gc)
         LineBank=(datasheet.cell('I2').value)
         DaHo=(datasheet.cell('I5').value)
@@ -221,11 +232,13 @@ def handle_message(event):
                     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
             
             DataToGoogleSheet(gc,dt2,data_list,'Money')
+
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
             #reply_arr=OriginalReply.textReply(reply_arr,str(day))
             TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
+
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         except Exception as e:      
@@ -238,6 +251,7 @@ def handle_message(event):
        
     reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
+
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
