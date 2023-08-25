@@ -12,7 +12,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 
 app = Flask(__name__)
-#===============================================================================    
+
 # 處理訊息
 def textReply(reply_arr,Text):
     reply_arr.append(TextSendMessage(text=Text))
@@ -35,12 +35,6 @@ def DefaultQuickReply(reply_arr):
         sticky=True,  # 将 sticky 参数设置为 True
         quick_reply=QuickReply(
             items=[ 
-                QuickReplyButton(
-                    action=MessageAction(label="記帳",text="記帳")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="汽機車紀錄",text="汽機車紀錄")
-                    ),
                 QuickReplyButton(
                     action=MessageAction(label="當月剩餘費用",text="當月剩餘費用")
                     ),
@@ -81,4 +75,3 @@ def DefaultQuickReply(reply_arr):
             )
         ))
     return reply_arr
-#===============================================================================    
