@@ -228,51 +228,13 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        else:      
-            try:
-                #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
-                data_list = event.message.text.split(' ')
-                '''
-                try:
-                    outputtype = data_list[0]
-                    account = data_list[1]
-                    expendituretext = data_list[2]
-                    money = data_list[3]
-                except:
-                    outputtype = "測試"
-                    account = "測試帳戶"
-                    expendituretext = "測試內容"
-                money = "NT$ "+money
-                print(data_list,money)
-                if(outputtype == '收入' ):          
-                    try:
-                        reply_arr=MoneyReply.expenditure(reply_arr,"新增收入成功",money,currentTime,outputtype,account,expendituretext)
-                    except:
-                        reply_arr=MoneyReply.expenditure(reply_arr,"新增收入失敗",money,currentTime,outputtype,account,expendituretext)
-                else:
-                    try:
-                        reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
-                    except:
-                        reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
-                
-                DataToGoogleSheet(gc,dt2,data_list,'Money')
-    
-                datasheet,Month = MoneyGoogleSheet(dt2,gc)
-                day=dt2.strftime("%d")
-                #reply_arr=OriginalReply.textReply(reply_arr,str(day))
-                TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
-                expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
-    
-                reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
-                reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
-                '''
-            except Exception as e:      
-                reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
-                if previous_message:
-                    reply_arr=OriginalReply.textReply(reply_arr,previous_message)
-                else:
-                    reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
-                    previous_message = event.message.text
+        else:         
+            reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
+            if previous_message:
+                reply_arr=OriginalReply.textReply(reply_arr,previous_message)
+            else:
+                reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
+                previous_message = event.message.text
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
     reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
