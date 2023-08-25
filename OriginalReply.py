@@ -62,23 +62,6 @@ def DefaultQuickReply(reply_arr):
                 QuickReplyButton(
                     action=MessageAction(label="記帳帳號",text="記帳帳號")
                     )
-                '''
-                QuickReplyButton(
-                    action=PostbackAction(label="Postback",data="回傳資料")
-                    ),
-                QuickReplyButton(
-                    action=DatetimePickerAction(label="時間選擇",data="時間選擇",mode='datetime')
-                    ),
-                QuickReplyButton(
-                    action=CameraAction(label="拍照")
-                    ),
-                QuickReplyButton(
-                    action=CameraRollAction(label="相簿")
-                    ),
-                QuickReplyButton(
-                    action=LocationAction(label="傳送位置")
-                    )
-                '''
                 ]
             )
         ))
