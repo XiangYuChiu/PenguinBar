@@ -61,7 +61,8 @@ def DefaultQuickReply(reply_arr):
                     ),
                 QuickReplyButton(
                     action=MessageAction(label="記帳帳號",text="記帳帳號")
-                    ),
+                    )
+                '''
                 QuickReplyButton(
                     action=PostbackAction(label="Postback",data="回傳資料")
                     ),
@@ -77,6 +78,7 @@ def DefaultQuickReply(reply_arr):
                 QuickReplyButton(
                     action=LocationAction(label="傳送位置")
                     )
+                '''
                 ]
             )
         ))
