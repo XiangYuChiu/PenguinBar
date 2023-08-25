@@ -16,7 +16,7 @@ line_bot_api = LineBotApi('RY6oiNHZMTyvJFwpXuUVt2f5IpoM9pxcZOJzF+gwTwaLczarODcnN
 # Channel Secret
 handler = WebhookHandler('e7ebf837ccbd2bacb20c9f90cea2ff0c')
 
-previous_message = ""#記憶以前的訊息
+
 #===============================================================================
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -109,7 +109,7 @@ def month_lessmoney(dt2,gc):
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
-    
+previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -127,6 +127,7 @@ def handle_message(event):
     try:
         if(previous_message == '記帳'): 
             #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
+            previous_message == ""
             data_list = event.message.text.split(' ')
             try:
                 outputtype = data_list[0]
@@ -229,7 +230,6 @@ def handle_message(event):
             result_str = two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         else:         
-            reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
             else:
