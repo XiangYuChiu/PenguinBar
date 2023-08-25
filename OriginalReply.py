@@ -1,17 +1,4 @@
-from flask import Flask, request, abort
-from linebot import  LineBotApi, WebhookHandler
-from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
-from datetime import datetime, timedelta
-import json
-
-#傳遞到GoogleSheet所使用的函示庫
-import sys
-import datetime
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials as SAC
-
-app = Flask(__name__)
 
 # 處理訊息
 def textReply(reply_arr,Text):
