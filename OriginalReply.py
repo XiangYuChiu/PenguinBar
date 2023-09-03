@@ -47,29 +47,6 @@ def DefaultQuickReply(reply_arr):
                 QuickReplyButton(
                     action=MessageAction(label="汽機車維修紀錄",text="汽機車維修紀錄")
                     )
-                '''
-                QuickReplyButton(
-                    action=MessageAction(label="當月剩餘費用",text="當月剩餘費用")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="當月信用卡費用",text="當月信用卡費用")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="本月記帳統計",text="本月記帳統計")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="記帳格式",text="記帳格式")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="汽機車格式",text="汽機車格式")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="記帳類別",text="記帳類別")
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="記帳帳號",text="記帳帳號")
-                    )
-                '''
                 ]
             )
         ))
