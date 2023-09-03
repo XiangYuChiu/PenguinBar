@@ -162,7 +162,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         elif(event.message.text == '記帳-支出'):
-            reply_arr=OriginalReply.textReply(reply_arr,'記帳-支出')
+            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
