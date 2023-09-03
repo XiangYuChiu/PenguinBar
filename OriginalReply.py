@@ -36,11 +36,18 @@ def DefaultQuickReply(reply_arr):
         quick_reply=QuickReply(
             items=[ 
                 QuickReplyButton(
-                    action=MessageAction(label="記帳",text="記帳")
+                    action=MessageAction(label="記帳-支出",text="記帳-支出")
+                    ),
+                QuickReplyButton(
+                    action=MessageAction(label="記帳-收入",text="記帳-收入")
+                    ),
+                QuickReplyButton(
+                    action=MessageAction(label="記帳-計畫",text="記帳-計畫")
                     ),
                 QuickReplyButton(
                     action=MessageAction(label="汽機車維修紀錄",text="汽機車維修紀錄")
-                    ),
+                    )
+                '''
                 QuickReplyButton(
                     action=MessageAction(label="當月剩餘費用",text="當月剩餘費用")
                     ),
@@ -62,6 +69,7 @@ def DefaultQuickReply(reply_arr):
                 QuickReplyButton(
                     action=MessageAction(label="記帳帳號",text="記帳帳號")
                     )
+                '''
                 ]
             )
         ))
