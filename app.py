@@ -114,22 +114,21 @@ def month_lessmoney(dt2,gc):
     return expenses_remaining,RemainingCost
 
 def today_cost(datasheet):
-    dates = datasheet.get_col(2, start='B25', returnas='matrix', include_tailing_empty=False)
-    amounts = datasheet.get_col(6, start='F25', returnas='matrix', include_tailing_empty=False)
-    print(dates)
-    print(amounts)
-    # 获取当天的日期
-    current_date = '2023-07-07'  # 将日期替换为你要查询的日期
+    dates = datasheet.get_values(start='B25', end='B1000', returnas='matrix')
+    amounts = datasheet.get_values(start='F25', end='F1000', returnas='matrix')
     
-    # 初始化当天的总金额为0
+    # 获取今天的日期，以便后续比较
+    today = datetime.now().date()
+    
+    # 初始化当天的总金额
     daily_total = 0
     
-    # 遍历日期和金额数据，找到当天的金额并计算总和
+    # 遍历数据并统计当天的总金额
     for date, amount in zip(dates, amounts):
-        date = date[0]  # 获取日期值
-        amount = amount[0]  # 获取金额值
-        if date == current_date:
-            daily_total += amount
+        date = date[0] if date else None  # 获取日期值，如果为空则设置为 None
+        amount = amount[0] if amount else None  # 获取金额值，如果为空则设置为 None
+        if date and date.date() == today and amount:
+            daily_total += float(amount)
     
     # 打印当天的总金额
     print("日期: ",current_date)
