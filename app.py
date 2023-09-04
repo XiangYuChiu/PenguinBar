@@ -77,7 +77,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
         datasheet.append_table(start='B' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
         #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
     except Exception as e:
-        print(e)
+        print("error: ",e)
 #===============================================================================
 #工具類
 def two_dimensional_list_intto_str(range_of_cells):
