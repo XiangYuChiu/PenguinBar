@@ -116,9 +116,10 @@ def month_lessmoney(dt2,gc):
 def today_cost(datasheet):
     dates = datasheet.get_col(2, returnas='matrix', include_tailing_empty=False)
     amounts = datasheet.get_col(6, returnas='matrix', include_tailing_empty=False)
-    print("today_cost")
+    print(dates)
+    print(amounts)
     # 获取当天的日期
-    current_date = '2023-09-04'  # 将日期替换为你要查询的日期
+    current_date = '2023-07-07'  # 将日期替换为你要查询的日期
     
     # 初始化当天的总金额为0
     daily_total = 0
