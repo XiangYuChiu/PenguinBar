@@ -152,7 +152,7 @@ def handle_message(event):
     try:
         if(previous_message == '記帳-支出'): 
             #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
-            previous_message == ""
+            previous_message = ""
             data_list = event.message.text.split(' ')
             try:
                 outputtype = data_list[0]
