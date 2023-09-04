@@ -165,7 +165,7 @@ def handle_message(event):
                 account = "測試帳戶"
                 expendituretext = "測試內容"
             money = "NT$ "+money
-            print(data_list,money)
+            #print(data_list,money)
             try:
                 reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
             except:
