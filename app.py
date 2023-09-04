@@ -112,6 +112,28 @@ def month_lessmoney(dt2,gc):
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
+
+def today_cost(datasheet):
+    dates = datasheet.get_col(2, returnas='matrix', include_tailing_empty=False)
+    amounts = datasheet.get_col(6, returnas='matrix', include_tailing_empty=False)
+    
+    # 获取当天的日期
+    current_date = '2023-09-04'  # 将日期替换为你要查询的日期
+    
+    # 初始化当天的总金额为0
+    daily_total = 0
+    
+    # 遍历日期和金额数据，找到当天的金额并计算总和
+    for date, amount in zip(dates, amounts):
+        date = date[0]  # 获取日期值
+        amount = amount[0]  # 获取金额值
+        if date == current_date:
+            daily_total += amount
+    
+    # 打印当天的总金额
+    print(f'日期: {current_date}, 当天总金额: {daily_total}')
+    return daily_total
+
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 @handler.add(MessageEvent, message=TextMessage)
@@ -152,7 +174,9 @@ def handle_message(event):
     
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
-            #reply_arr=OriginalReply.textReply(reply_arr,str(day))
+            todayMoney=today_cost(datasheet)
+            reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
+            
             TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
     
