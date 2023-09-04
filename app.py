@@ -140,16 +140,10 @@ def handle_message(event):
                 expendituretext = "測試內容"
             money = "NT$ "+money
             print(data_list,money)
-            if(outputtype == '收入' ):          
-                try:
-                    reply_arr=MoneyReply.expenditure(reply_arr,"新增收入成功",money,currentTime,outputtype,account,expendituretext)
-                except:
-                    reply_arr=MoneyReply.expenditure(reply_arr,"新增收入失敗",money,currentTime,outputtype,account,expendituretext)
-            else:
-                try:
-                    reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
-                except:
-                    reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
+            try:
+                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
+            except:
+                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
                 
             DataToGoogleSheet(gc,dt2,data_list,'Money')
     
