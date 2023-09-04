@@ -131,7 +131,7 @@ def today_cost(datasheet):
             daily_total += amount
     
     # 打印当天的总金额
-    print(f'日期: {current_date}, 当天总金额: {daily_total}')
+    print('日期: ',current_date, '当天总金额: ',daily_total)
     return daily_total
 
 previous_message = ""#記憶以前的訊息    
