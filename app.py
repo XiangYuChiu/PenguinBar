@@ -72,7 +72,10 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
     values =  [dt2.strftime("%d")]+message
     print(values,type(values))
     try:
-        datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
+        b_column_values = datasheet.get_col(2, returnas='matrix', include_tailing_empty=False)
+        last_row_index = len(b_column_values)
+        datasheet.append_table(start='B' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
+        #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
     except Exception as e:
         print(e)
 #===============================================================================
