@@ -114,8 +114,8 @@ def month_lessmoney(dt2,gc):
     return expenses_remaining,RemainingCost
 
 def today_cost(datasheet):
-    dates = datasheet.get_values(start='B25', end='B1000', returnas='matrix')
-    amounts = datasheet.get_values(start='F25', end='F1000', returnas='matrix')
+    dates = datasheet.get_values(start='G16', end='AK16', returnas='matrix')
+    amounts = datasheet.get_values(start='G17', end='AK17', returnas='matrix')
     
     # 获取今天的日期，以便后续比较
     today = datetime.datetime.now().date()
