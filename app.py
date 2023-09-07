@@ -77,7 +77,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
         datasheet.append_table(start='B' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
         #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
     except Exception as e:
-        print("error: ",e)
+        print("寫入GoogleSheet error: ",e)
 #===============================================================================
 #工具類
 def two_dimensional_list_intto_str(range_of_cells):
@@ -119,7 +119,7 @@ def today_cost(datasheet):
     
     # 获取今天的日期，以便后续比较
     today = datetime.datetime.now().date()
-    
+    print(today)
     # 初始化当天的总金额
     daily_total = 0
     
@@ -177,8 +177,9 @@ def handle_message(event):
             day=dt2.strftime("%d")
             todayMoney=today_cost(datasheet)
             reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
+            print("TodayMoney = ",todayMoney)
             
-            TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
+            #TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
     
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(TodayMoney)))+"元\n今天總花費"+str(TodayMoney)+"元")
