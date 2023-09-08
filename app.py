@@ -118,7 +118,7 @@ def today_cost(datasheet):
     amounts = datasheet.get_values(start='G17', end='AK17', returnas='matrix')
     
     # 获取今天的日期，以便后续比较
-    today = datetime.datetime.now().date()
+    today = datetime.datetime.now()
     print(today)
     # 初始化当天的总金额
     daily_total = 0
