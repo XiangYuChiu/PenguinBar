@@ -34,29 +34,6 @@ def callback():
     return 'OK'
 #===============================================================================
 
-#===============================================================================
-def month_lessmoney(dt2,gc):
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-    RemainingCost = datasheet.cell('D2')
-    Remaining=int(RemainingCost.value)
-    RemainingCost = str(int(Month))+"月剩餘伙食費 : "+str(RemainingCost.value)+"元"        
-                
-    day=dt2.strftime("%d")
-    current_date = datetime.datetime.now()# 获取当前日期
-    first_day_of_month = current_date.replace(day=1)# 获取当前月份的第一天
-                    
-    # 获取下个月的第一天
-    if first_day_of_month.month == 12:
-        next_month = first_day_of_month.replace(year=first_day_of_month.year + 1, month=1)
-    else:
-        next_month = first_day_of_month.replace(month=first_day_of_month.month + 1)
-                    
-    # 计算当前月份的总天数
-    total_days_in_month = (next_month - first_day_of_month).days
-    expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
-    return expenses_remaining,RemainingCost
-#===============================================================================
-
 
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
@@ -101,7 +78,7 @@ def handle_message(event):
             date = chr(int(ord('F'))+int(day))
             todayMoney = int(datasheet.cell(date+'17').value)
             
-            expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
+            expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
     
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
@@ -109,7 +86,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
         elif(event.message.text == '當月剩餘費用'):
-            expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
+            expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
             reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
             if expenses_remaining<=200:
