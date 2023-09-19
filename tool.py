@@ -69,7 +69,7 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #創造選單
-def create_dropdown_menu(options):
+def create_dropdown_menu(options:None):
     actions = []
     if options == None:
         options = ['選項 1', '選項 2', '選項 3', '選項 4',]
