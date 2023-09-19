@@ -70,7 +70,7 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #創造選單
-def create_dropdown_menu(options:None):
+def create_dropdown_menu(reply_arr,options:None):
     actions = []
     if options == None:
         options = ['選項 1', '選項 2', '選項 3', '選項 4',]
@@ -82,7 +82,7 @@ def create_dropdown_menu(options:None):
     reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
     return reply_arr
 
-def create_default_dropdown_menu():
+def create_default_dropdown_menu(reply_arr):
     actions = []
     options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄']
     
