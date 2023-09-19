@@ -1,5 +1,4 @@
-import datetime, json
-
+import datetime
 
 
 #===============================================================================
@@ -49,6 +48,15 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
         print("寫入GoogleSheet error: ",e)
 #===============================================================================
 #工具類
+
+#時間設定
+def datetime():
+    dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+    dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
+    currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
+    return dt2
+
+#二維矩陣轉換成字串
 def two_dimensional_list_intto_str(range_of_cells):
     # 使用循环将嵌套列表转换为字符串
     result_str = ''
@@ -82,135 +90,3 @@ def month_lessmoney(dt2,gc):
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
 #===============================================================================
-
-
-previous_message = ""#記憶以前的訊息    
-expenses_remaining=""
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    reply_arr=[]
-    global previous_message
-    print("獲取資料 : ",event.message.text,type(event.message.text))
-    #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
-    auth_file = "linebotsheet.json"
-    gc = pygsheets.authorize(service_file = auth_file)
-
-    #時間設定
-    dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-    dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
-    currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
-    try:
-        if(previous_message == '記帳-支出'): 
-            #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
-            previous_message = ""
-            data_list = event.message.text.split(' ')
-            try:
-                outputtype = data_list[0]
-                account = data_list[1]
-                expendituretext = data_list[2]
-                money = data_list[3]
-            except:
-                outputtype = "測試"
-                account = "測試帳戶"
-                expendituretext = "測試內容"
-            money = "NT$ "+money
-            #print(data_list,money)
-            try:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
-            except:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
-                
-            DataToGoogleSheet(gc,dt2,data_list,'Money')
-    
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            day=dt2.strftime("%d")
-            date = chr(int(ord('F'))+int(day))
-            todayMoney = int(datasheet.cell(date+'17').value)
-            
-            expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
-    
-            reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
-        elif(event.message.text == '記帳-支出'):
-            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
-            previous_message='記帳-支出'
-        elif(event.message.text == '當月剩餘費用'):
-            expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
-            reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
-            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
-            if expenses_remaining<=200:
-                reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
-            else:
-                reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
-        elif(event.message.text == '當月信用卡費用'):
-            LineBank=[]
-            DaHo=[]
-            if(int(dt2.strftime("%d"))>=12):
-                datasheet,Month = MoneyGoogleSheet(dt2,gc)
-                LineBank.append(datasheet.cell('E11').value)
-                DaHo.append(datasheet.cell('E12').value)
-                datasheet,Month = MoneyGoogleSheet(dt2,gc,1)
-                LineBank.append(datasheet.cell('E9').value)
-                DaHo.append(datasheet.cell('E10').value)
-            else:
-                datasheet,Month = MoneyGoogleSheet(dt2,gc)
-                LineBank.append(datasheet.cell('E9').value)
-                DaHo.append(datasheet.cell('E10').value)
-                datasheet,Month = MoneyGoogleSheet(dt2,gc,-1)
-                LineBank.append(datasheet.cell('E11').value)
-                DaHo.append(datasheet.cell('E12').value)
-            reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
-    
-        elif(event.message.text == '本月記帳統計'):
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            MoneyType = datasheet.get_values_batch( ['K2:K11'])
-            MoneyType = [item for sublist1 in MoneyType for sublist2 in sublist1 for item in sublist2]
-            Money = datasheet.get_values_batch( ['L2:L11'])
-            Money = [item for sublist1 in Money for sublist2 in sublist1 for item in sublist2]
-            TotalMoney = datasheet.cell('D5')
-            AllMoney = datasheet.cell('D3')
-            reply_arr=MoneyReply.rankspend(reply_arr,AllMoney.value,TotalMoney.value,MoneyType,Money)
-    
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            LineBank=(datasheet.cell('I2').value)
-            DaHo=(datasheet.cell('I5').value)
-            reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
-                                 
-        elif(event.message.text == '記帳類別'):
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['K3:K11'])
-            result_str = two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        elif(event.message.text == '記帳帳號'):
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['H2:H7'])
-            result_str = two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        elif(event.message.text == '記帳格式'):
-            datasheet,Month = MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['C14:F14'])
-            result_str = two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
-            
-        elif(event.message.text == '汽機車格式'):
-            datasheet = MotorGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['B6:E6'])
-            result_str = two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
-        else:         
-            if previous_message:
-                reply_arr=OriginalReply.textReply(reply_arr,previous_message)
-            else:
-                reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
-                previous_message = event.message.text
-    except Exception as e:      
-        reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
-    reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
-    line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
-
-import os
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
