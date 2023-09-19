@@ -79,9 +79,8 @@ def create_dropdown_menu(options:None):
         actions.append(action)
     
     buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
-    template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
-
-    return template_message
+    reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
+    return reply_arr
 
 def create_default_dropdown_menu():
     actions = []
@@ -90,7 +89,8 @@ def create_default_dropdown_menu():
     buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
     template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
 
-    return template_message
+    reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
+    return reply_arr
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
