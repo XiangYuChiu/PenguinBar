@@ -175,7 +175,9 @@ def handle_message(event):
     
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
-            todayMoney=today_cost(datasheet)
+            #todayMoney=today_cost(datasheet)
+            date = chr(int(ord('F'))+int(day))
+            todayMoney = int(datasheet.cell(date+'17').value)
             reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
             print("TodayMoney = ",todayMoney)
             
