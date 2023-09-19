@@ -82,6 +82,9 @@ def handle_message(event):
     
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+        elif(previous_message == '記帳-收入'): 
+            previous_message = ""
+            reply_arr.append(tool.create_dropdown_menu())
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
