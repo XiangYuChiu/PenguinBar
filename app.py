@@ -156,6 +156,10 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
+            
+        elif(event.message.text == 'test'):    
+            reply_arr.append(tool.create_default_dropdown_menu(previous_message))
+            
         else:         
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
