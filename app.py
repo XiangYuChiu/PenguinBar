@@ -112,28 +112,8 @@ def month_lessmoney(dt2,gc):
     total_days_in_month = (next_month - first_day_of_month).days
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
+#===============================================================================
 
-def today_cost(datasheet):
-    dates = datasheet.get_values(start='G16', end='AK16', returnas='matrix')
-    amounts = datasheet.get_values(start='G17', end='AK17', returnas='matrix')
-    
-    # 获取今天的日期，以便后续比较
-    today = datetime.datetime.now()
-    print(today)
-    # 初始化当天的总金额
-    daily_total = 0
-    
-    # 遍历数据并统计当天的总金额
-    for date, amount in zip(dates, amounts):
-        date = date[0] if date else None  # 获取日期值，如果为空则设置为 None
-        amount = amount[0] if amount else None  # 获取金额值，如果为空则设置为 None
-        if date and date.date() == today and amount:
-            daily_total += float(amount)
-    
-    # 打印当天的总金额
-    print("日期: ",current_date)
-    print("當天總金額: ",daily_total)
-    return daily_total
 
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
@@ -175,12 +155,9 @@ def handle_message(event):
     
             datasheet,Month = MoneyGoogleSheet(dt2,gc)
             day=dt2.strftime("%d")
-            #todayMoney=today_cost(datasheet)
             date = chr(int(ord('F'))+int(day))
             todayMoney = int(datasheet.cell(date+'17').value)
-            #reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
             
-            #TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
     
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
