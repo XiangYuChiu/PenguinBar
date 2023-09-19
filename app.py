@@ -85,6 +85,9 @@ def handle_message(event):
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
+        elif(event.message.text == '記帳-收入'):
+            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
+            previous_message='記帳-收入'
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
