@@ -158,7 +158,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):    
-            reply_arr.append(tool.create_default_dropdown_menu())
+            reply_arr=(tool.create_default_dropdown_menu())
             
         else:         
             if previous_message:
