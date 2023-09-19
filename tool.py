@@ -82,6 +82,15 @@ def create_dropdown_menu(options:None):
     template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
 
     return template_message
+
+def create_default_dropdown_menu():
+    actions = []
+    options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄']
+    
+    buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
+    template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
+
+    return template_message
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
