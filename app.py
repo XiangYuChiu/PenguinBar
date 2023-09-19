@@ -178,8 +178,7 @@ def handle_message(event):
             #todayMoney=today_cost(datasheet)
             date = chr(int(ord('F'))+int(day))
             todayMoney = int(datasheet.cell(date+'17').value)
-            reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
-            print("TodayMoney = ",todayMoney)
+            #reply_arr=OriginalReply.textReply(reply_arr,str(todayMoney))
             
             #TodayMoney = datasheet.cell('O'+str(int(day)+24)).value
             expenses_remaining,RemainingCost=month_lessmoney(dt2,gc)
