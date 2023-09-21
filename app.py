@@ -190,7 +190,7 @@ def handle_message(event):
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
         
-            reply_arr.append(template_message))
+            reply_arr.append(template_message)
             
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
