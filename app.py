@@ -168,7 +168,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):  
-            '''
+            
             reply_arr.append(
                             TemplateSendMessage(
                                 alt_text='Buttons template',
@@ -196,7 +196,7 @@ def handle_message(event):
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
         
             reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-            
+            '''
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
