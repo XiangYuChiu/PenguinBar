@@ -77,7 +77,7 @@ def handle_message(event):
             day=dt2.strftime("%d")
             date = chr(int(ord('F'))+int(day))
             todayMoney = int(datasheet.cell(date+'17').value)
-            
+            reply_arr=OriginalReply.textReply(reply_arr,'OK')
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
     
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
