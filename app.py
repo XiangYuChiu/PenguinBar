@@ -168,6 +168,7 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):  
+            '''
             reply_arr.append(
                             TemplateSendMessage(
                                 alt_text='Buttons template',
@@ -176,12 +177,12 @@ def handle_message(event):
                                     text='第一次見面嗎',
                                     actions=[
                                         MessageTemplateAction(
-                                            label='是，第一次見面',
-                                            text='是',
+                                            label='記帳-支出',
+                                            text='記帳-支出',
                                         ),
                                         MessageTemplateAction(
-                                            label='已經見過了',
-                                            text='見過了',
+                                            label='記帳-收入',
+                                            text='記帳-收入',
                                         ),
                                     ]
                                 )
@@ -189,13 +190,13 @@ def handle_message(event):
                         )
             '''
             actions = []
-            options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄']
+            options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄',]
             
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
         
             reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-            '''
+            
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
