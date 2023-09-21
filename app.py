@@ -77,9 +77,12 @@ def handle_message(event):
             print("Money OK")
             day=dt2.strftime("%d")
             print("day",day)
-            date = chr(int(ord('F'))+int(day))
-            print("date",date)
-            todayMoney = int(datasheet.cell(date+'17').value)
+            if day > 20:
+              data_grid="A"+chr(int(day+44))
+            else:
+              data_grid=chr(int(ord('F'))+int(day))
+            print("date",data_grid)
+            todayMoney = int(datasheet.cell(data_grid+'17').value)
             print("Today Money OK")
             print("todayMoney",todayMoney)
             
