@@ -75,7 +75,7 @@ def handle_message(event):
     
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             print("Money OK")
-            day=dt2.strftime("%d")
+            day=int(dt2.strftime("%d"))
             print("day",day)
             if day > 20:
               data_grid="A"+chr(int(day+44))
