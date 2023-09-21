@@ -51,7 +51,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
 #工具類
 
 #時間設定
-def datetime():
+def datetime_seting():
     dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
     dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
     currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
