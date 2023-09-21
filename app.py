@@ -167,8 +167,36 @@ def handle_message(event):
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
-        elif(event.message.text == 'test'):    
-            reply_arr=tool.create_default_dropdown_menu(reply_arr)
+        elif(event.message.text == 'test'):  
+            reply_arr.append(
+                            TemplateSendMessage(
+                                alt_text='Buttons template',
+                                template=ButtonsTemplate(
+                                    title='Hello',
+                                    text='第一次見面嗎',
+                                    actions=[
+                                        MessageTemplateAction(
+                                            label='是，第一次見面',
+                                            text='是',
+                                        ),
+                                        MessageTemplateAction(
+                                            label='已經見過了',
+                                            text='見過了',
+                                        ),
+                                    ]
+                                )
+                            )
+                        )
+            '''
+            actions = []
+            options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄']
+            
+            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
+            template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
+        
+            reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
+            '''
+            #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
             if previous_message:
