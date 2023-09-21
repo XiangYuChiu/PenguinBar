@@ -74,22 +74,15 @@ def handle_message(event):
             tool.DataToGoogleSheet(gc,dt2,data_list,'Money')
     
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            print("Money OK")
             day=int(dt2.strftime("%d"))
-            print("day",day)
             if day > 20:
               data_grid="A"+chr(int(day+44))
             else:
               data_grid=chr(int(ord('F'))+int(day))
-            print("date",data_grid)
+                
             todayMoney = int(datasheet.cell(data_grid+'17').value)
-            print("Today Money OK")
-            print("todayMoney",todayMoney)
-            
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
-            print("expenses_remaining",expenses_remaining)
-            print("RemainingCost",RemainingCost)
-    
+            
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         elif(previous_message == '記帳-收入'): 
@@ -168,10 +161,10 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):  
-            
+            '''
             reply_arr.append(
                             TemplateSendMessage(
-                                alt_text='Buttons template',
+                                alt_text='下拉式選單',
                                 template=ButtonsTemplate(
                                     title='Hello',
                                     text='第一次見面嗎',
@@ -189,14 +182,16 @@ def handle_message(event):
                             )
                         )
             '''
-            actions = []
+            actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),
+                                MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
+                                ]
             options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄',]
             
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
         
-            reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-            '''
+            reply_arr.append(template_message))
+            
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
