@@ -164,14 +164,16 @@ def handle_message(event):
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             print("col_values")
-            data_range = datasheet.range('B25:B')
+            values = datasheet.get_values('B25:F')  # 从 B25 单元格到 F 列的最后一行
 
-            # 获取最后4条新增数据
-            last_4_data = [cell.value for cell in data_range[-4:]]
+            # 获取最后的 4 条数据
+            if len(values) >= 4:
+                last_4_rows = values[-4:]
+            else:
+                last_4_rows = values  # 如果行数不足 4 行，则获取所有行
 
             print(last_4_data)    
-            # 获取最后4行的数据
-            last_4_rows = column_b_data[-4:]
+
             reply_arr=OriginalReply.textReply(reply_arr,last_4_rows)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
