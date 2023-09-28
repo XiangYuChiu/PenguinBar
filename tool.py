@@ -83,13 +83,15 @@ def create_dropdown_menu(reply_arr,options=None):
     return reply_arr
 
 def create_default_dropdown_menu(reply_arr):
-    actions = []
-    options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄']
-    
+    actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),
+                        MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
+                        ]
+    options = ['記帳-支出', '記帳-收入', '記帳-計畫', '汽機車維修紀錄',]
+            
     buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
     template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
-
-    reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
+        
+    reply_arr.append(template_message)
     return reply_arr
 #===============================================================================
 def month_lessmoney(dt2,gc):
