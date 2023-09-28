@@ -1,15 +1,24 @@
-from flask import Flask, request, abort
-from linebot import  LineBotApi, WebhookHandler
-from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
 from datetime import datetime, timedelta
 import json
+import OriginalReply,tool
 
-#傳遞到GoogleSheet所使用的函示庫
-import sys
-import datetime
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials as SAC
+
+def lastest_four_data(dt2,gc):
+    worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)    
+    # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
+    non_empty_data=[]
+    for i in range(3,7):
+        non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
+    newest_four_data = []
+    answer = ""
+    for i in range(len(non_empty_data[0])):
+        for j in range(len(non_empty_data)):
+            answer += non_empty_data[j][i]+" "
+        newest_four_data.append(answer) 
+        answer = ""
+    return newest_four_data
+
 
 def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
     reply_arr.append(FlexSendMessage(
