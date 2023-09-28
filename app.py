@@ -183,9 +183,9 @@ def handle_message(event):
             #formatted_data = "\n".join(last_4_data)
 
 
-            print(last_4_data)    
+            print(formatted_output)    
 
-            reply_arr=OriginalReply.textReply(reply_arr,last_4_data)
+            reply_arr=OriginalReply.textReply(reply_arr,formatted_output)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
