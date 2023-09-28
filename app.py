@@ -167,7 +167,7 @@ def handle_message(event):
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
             
-            actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
+            actions=[MessageTemplateAction(label=newest_four_data[0],text=newest_four_data[0],),MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
                         MessageTemplateAction(label='記帳-收入',text='記帳-收入',),MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
                         ]
             
