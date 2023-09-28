@@ -161,27 +161,6 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):  
-            '''
-            reply_arr.append(
-                            TemplateSendMessage(
-                                alt_text='下拉式選單',
-                                template=ButtonsTemplate(
-                                    title='Hello',
-                                    text='第一次見面嗎',
-                                    actions=[
-                                        MessageTemplateAction(
-                                            label='記帳-支出',
-                                            text='記帳-支出',
-                                        ),
-                                        MessageTemplateAction(
-                                            label='記帳-收入',
-                                            text='記帳-收入',
-                                        ),
-                                    ]
-                                )
-                            )
-                        )
-            '''
             actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),
                                 MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
                                 ]
@@ -191,7 +170,12 @@ def handle_message(event):
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
         
             reply_arr.append(template_message)
-            
+            datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+            column_b_data = datasheet.col_values(2)
+
+            # 获取最后4行的数据
+            last_4_rows = column_b_data[-4:]
+            reply_arr=OriginalReply.textReply(reply_arr,last_4_rows)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
