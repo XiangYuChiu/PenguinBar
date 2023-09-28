@@ -164,7 +164,6 @@ def handle_message(event):
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             print("col_values")
-            column_b_data = datasheet.col_values(2)
             data_range = datasheet.range('B25:B')
 
             # 获取最后4条新增数据
