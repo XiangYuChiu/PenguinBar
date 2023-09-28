@@ -166,38 +166,17 @@ def handle_message(event):
         
             # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
             non_empty_data=[]
-            count = 1
             for i in range(3,7):
                 non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
-                count+=1
-            print(non_empty_data)
-            '''
-            non_empty_C_data = [cell for cell in reversed(worksheet.get_col(3)) if cell.strip() != ""][:4]
-            # 找到B列非空白的数据的最后4笔新增数据
-            non_empty_D_data = [cell for cell in reversed(worksheet.get_col(4)) if cell.strip() != ""][:4]
-            # 找到B列非空白的数据的最后4笔新增数据
-            non_empty_E_data = [cell for cell in reversed(worksheet.get_col(5)) if cell.strip() != ""][:4]
-            # 找到B列非空白的数据的最后4笔新增数据
-            non_empty_F_data = [cell for cell in reversed(worksheet.get_col(6)) if cell.strip() != ""][:4]
-            '''
+
             newest_four_data = []
             answer = ""
             for i in range(len(non_empty_data[0])):
-              #print(i,ans[i])
               for j in range(len(non_empty_data)):
-                #print(ans[j][i])
                 answer += non_empty_data[j][i]+" "
-              newest_four_data.append(answer)
-              
+              newest_four_data.append(answer) 
               answer = ""
-            
-            '''
-            newest_four_data =[]
-            for i in range(len(non_empty_C_data)):
-                print(i)
-                print(non_empty_C_data[i])
-                newest_four_data.append(non_empty_C_data[i]+" "+non_empty_D_data[i]+" "+non_empty_E_data[i]+" "+str(non_empty_F_data[i]))
-            '''
+           
             print(newest_four_data)
 
             reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
