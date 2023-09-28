@@ -162,30 +162,30 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
-            datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+            worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             #b_column_values = datasheet.get_col(2, include_tailing_empty=False)
-            b_column = datasheet.get_col(2, include_tailing_empty=False)
-            start_index = 25  # B25的索引
-            end_index = start_index + len(b_column) - 1  # 最后一个非空白数据的索引
-            # 获取最后4行的数据，并与C、D、E、F列对应的数据一起列出
-            result_data = []
-            for i in range(end_index, end_index - 4, -1):
-                if i >= start_index:
-                    row_data = [datasheet.cell(i:2).value]  # B列数据
-                    for col_index in range(3, 7):  # C、D、E、F列数据
-                        row_data.append(datasheet.cell(i: col_index).value)
-                    result_data.append(row_data)
+            # 获取B列的所有数据
+            b_column_data = worksheet.col_values(2)
+            
+            # 找到B列非空白的数据的最后4笔新增数据
+            non_empty_b_data = [cell for cell in reversed(b_column_data) if cell.strip() != ""][:4]
+            
+            # 获取与B列对应的C、D、E、F列的最后4笔数据
+            corresponding_data = []
+            for cell in non_empty_b_data:
+                row_number = b_column_data.index(cell) + 1
+                c_data = worksheet.cell(row_number, 3).value
+                d_data = worksheet.cell(row_number, 4).value
+                e_data = worksheet.cell(row_number, 5).value
+                f_data = worksheet.cell(row_number, 6).value
+                corresponding_data.append([cell, c_data, d_data, e_data, f_data])
             
             # 格式化输出数据
-            formatted_output = "[" + "], [".join([" ".join(row) for row in result_data]) + "]"
+            formatted_data = [" ".join(row) for row in corresponding_data]
 
-            # 将数据格式化为文本消息
-            #formatted_data = "\n".join(last_4_data)
+            print(formatted_data)    
 
-
-            print(formatted_output)    
-
-            reply_arr=OriginalReply.textReply(reply_arr,formatted_output)
+            reply_arr=OriginalReply.textReply(reply_arr,formatted_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
