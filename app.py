@@ -171,8 +171,13 @@ def handle_message(event):
         
             reply_arr.append(template_message)
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            column_b_data = datasheet.get_all_records(2)
-
+            try:
+                print("col_values")
+                column_b_data = datasheet.col_values(2)
+            except:
+                print("get_all_records")
+                column_b_data = datasheet.get_all_records(2)
+                
             # 获取最后4行的数据
             last_4_rows = column_b_data[-4:]
             reply_arr=OriginalReply.textReply(reply_arr,last_4_rows)
