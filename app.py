@@ -163,19 +163,29 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            b_column_values = datasheet.get_col(2, include_tailing_empty=False)
-            data_after_b25 = b_column_values[24:]  # 从第25行开始的数据
+            #b_column_values = datasheet.get_col(2, include_tailing_empty=False)
+            b_column = datasheet.get_col(2, include_tailing_empty=False)
+            start_index = 25  # B25的索引
+            end_index = start_index + len(b_column) - 1  # 最后一个非空白数据的索引
+            # 获取最后4行的数据，并与C、D、E、F列对应的数据一起列出
+            result_data = []
+            for i in range(end_index, end_index - 4, -1):
+                if i >= start_index:
+                    row_data = [worksheet.cell(i, 2).value]  # B列数据
+                    for col_index in range(3, 7):  # C、D、E、F列数据
+                        row_data.append(worksheet.cell(i, col_index).value)
+                    result_data.append(row_data)
             
-            # 获取最后4筆新增的数据
-            last_4_data = data_after_b25[-4:]
-            
+            # 格式化输出数据
+            formatted_output = "[" + "], [".join([" ".join(row) for row in result_data]) + "]"
+
             # 将数据格式化为文本消息
             #formatted_data = "\n".join(last_4_data)
 
 
             print(last_4_data)    
 
-            reply_arr=OriginalReply.textReply(reply_arr,formatted_data)
+            reply_arr=OriginalReply.textReply(reply_arr,last_4_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
