@@ -169,7 +169,7 @@ def handle_message(event):
             
             # 找到B列非空白的数据的最后4笔新增数据
             non_empty_b_data = [cell for cell in reversed(b_column_data) if cell.strip() != ""][:4]
-            
+            print(non_empty_b_data)  
             # 获取与B列对应的C、D、E、F列的最后4笔数据
             corresponding_data = []
             for cell in non_empty_b_data:
