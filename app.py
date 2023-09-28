@@ -171,9 +171,9 @@ def handle_message(event):
             result_data = []
             for i in range(end_index, end_index - 4, -1):
                 if i >= start_index:
-                    row_data = [worksheet.cell(i, 2).value]  # B列数据
+                    row_data = [datasheet.cell(i, 2).value]  # B列数据
                     for col_index in range(3, 7):  # C、D、E、F列数据
-                        row_data.append(worksheet.cell(i, col_index).value)
+                        row_data.append(datasheet.cell(i, col_index).value)
                     result_data.append(row_data)
             
             # 格式化输出数据
