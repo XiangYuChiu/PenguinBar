@@ -168,7 +168,7 @@ def handle_message(event):
             print(newest_four_data)
             actions = []
             options = ['選項 1', '選項 2', '選項 3', '選項 4',]
-            for option in options:
+            for option in newest_four_data:
                 action = MessageTemplateAction(label=option, text=option)
                 actions.append(action)
             
