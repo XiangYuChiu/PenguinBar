@@ -92,8 +92,8 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
-            actions = actions=[MessageTemplateAction(label=newest_four_data[0],text=newest_four_data[0],),MessageTemplateAction(label=newest_four_data[1],text=newest_four_data[1],),
-                        MessageTemplateAction(label=newest_four_data[2],text=newest_four_data[2],),MessageTemplateAction(label=newest_four_data[3],text=newest_four_data[3],),
+            actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),
+                        MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
                         ]
                     
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
