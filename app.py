@@ -168,7 +168,7 @@ def handle_message(event):
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
             actions=[MessageTemplateAction(label=options[0],text=options[0],),
-                        MessageTemplateAction(label=options[1],text=options[1],),
+                        MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
                         ]
                     
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
