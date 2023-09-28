@@ -167,26 +167,14 @@ def handle_message(event):
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
             actions = []
-            options = [newest_four_data+,]
+            options = [newest_four_data+","]
             #options = ['選項 1', '選項 2', '選項 3', '選項 4',]
             print(options)
             for option in newest_four_data:
                 action = MessageTemplateAction(label=option, text=option)
                 actions.append(action)
             
-            '''
-            actions = []
-            for option in newest_four_data:
-                print(option)
-                action = MessageTemplateAction(label=option, text=option,)
-                print(action)
-                actions.append(action)
-            '''
-            '''
-            actions=[MessageTemplateAction(label=newest_four_data[0],text=newest_four_data[0],),MessageTemplateAction(label=newest_four_data[1],text=newest_four_data[1],),
-                        MessageTemplateAction(label=newest_four_data[2],text=newest_four_data[2],),MessageTemplateAction(label=newest_four_data[3],text=newest_four_data[3],),
-                        ]
-            '''
+
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
                 
