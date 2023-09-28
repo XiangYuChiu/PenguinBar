@@ -165,7 +165,7 @@ def handle_message(event):
             worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             #b_column_values = datasheet.get_col(2, include_tailing_empty=False)
             # 获取B列的所有数据
-            b_column_data = worksheet.get_col(2)
+            b_column_data = worksheet.get_col(5)
             
             # 找到B列非空白的数据的最后4笔新增数据
             non_empty_b_data = [cell for cell in reversed(b_column_data) if cell.strip() != ""][:4]
