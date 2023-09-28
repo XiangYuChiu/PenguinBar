@@ -91,6 +91,7 @@ def handle_message(event):
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
+            newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
         elif(event.message.text == '記帳-收入'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
             previous_message='記帳-收入'
@@ -173,7 +174,7 @@ def handle_message(event):
             
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
             reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-            reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
+            #reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
