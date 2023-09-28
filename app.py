@@ -166,15 +166,15 @@ def handle_message(event):
             
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
-            actions = []
-            options = ['選項 1', '選項 2', '選項 3', '選項 4',]
-            for option in options:
-                action = MessageTemplateAction(label=option, text=option),
-                actions.append(action)
-            print(actions)
-            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
-            reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-            #reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
+            
+            actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
+                        MessageTemplateAction(label='記帳-收入',text='記帳-收入',),MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
+                        ]
+            
+            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
+            template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
+                
+            reply_arr.append(template_message)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
         else:         
