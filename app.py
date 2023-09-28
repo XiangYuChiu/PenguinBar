@@ -167,7 +167,9 @@ def handle_message(event):
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
             actions = []
-            options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+            options = [newest_four_data+,]
+            #options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+            print(options)
             for option in newest_four_data:
                 action = MessageTemplateAction(label=option, text=option)
                 actions.append(action)
