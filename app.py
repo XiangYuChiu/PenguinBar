@@ -180,6 +180,7 @@ def handle_message(event):
             newest_four_data =[]
             for i in range(len(non_empty_C_data)):
                 print(i)
+                print(non_empty_C_data[i])
                 newest_four_data[i]=non_empty_C_data[i]+" "+non_empty_D_data[i]+" "+non_empty_E_data[i]+" "+str(non_empty_F_data[i])
             print(newest_four_data)
 
