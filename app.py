@@ -171,7 +171,7 @@ def handle_message(event):
             for option in options:
                 action = MessageTemplateAction(label=option, text=option),
                 actions.append(action)
-            
+            print(actions)
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
             reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
             #reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
