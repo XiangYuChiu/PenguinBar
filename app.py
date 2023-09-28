@@ -162,6 +162,8 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
+            
+            '''
             worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
         
             # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
@@ -176,9 +178,10 @@ def handle_message(event):
                 answer += non_empty_data[j][i]+" "
               newest_four_data.append(answer) 
               answer = ""
-           
+            '''
+            newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
-
+            
             reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
