@@ -164,7 +164,14 @@ def handle_message(event):
             print("Enter test")
             worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
         
-            # 找到B列非空白的数据的最后4笔新增数据
+            # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
+            non_empty_data=[4][]
+            count = 1
+            for i in range(3,6):
+                non_empty_data[count].append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
+                count+=1
+            print(non_empty_data)
+            '''
             non_empty_C_data = [cell for cell in reversed(worksheet.get_col(3)) if cell.strip() != ""][:4]
             # 找到B列非空白的数据的最后4笔新增数据
             non_empty_D_data = [cell for cell in reversed(worksheet.get_col(4)) if cell.strip() != ""][:4]
@@ -172,11 +179,7 @@ def handle_message(event):
             non_empty_E_data = [cell for cell in reversed(worksheet.get_col(5)) if cell.strip() != ""][:4]
             # 找到B列非空白的数据的最后4笔新增数据
             non_empty_F_data = [cell for cell in reversed(worksheet.get_col(6)) if cell.strip() != ""][:4]
-            
-            print(type(non_empty_C_data),non_empty_C_data)  
-            print(type(non_empty_D_data),non_empty_D_data)  
-            print(type(non_empty_E_data),non_empty_E_data)  
-            print(type(non_empty_F_data),non_empty_F_data)  
+            '''
             newest_four_data =[]
             for i in range(len(non_empty_C_data)):
                 print(i)
