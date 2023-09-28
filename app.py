@@ -163,16 +163,13 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            try:
-                print("col_values")
-                column_b_data = datasheet.col_values(2)
-                data_range = datasheet.range('B25:B')
+            print("col_values")
+            column_b_data = datasheet.col_values(2)
+            data_range = datasheet.range('B25:B')
 
-                # 获取最后4条新增数据
-                last_4_data = [cell.value for cell in data_range[-4:]]
-            except:
-                print("get_all_records")
-                column_b_data = datasheet.get_all_records(2)
+            # 获取最后4条新增数据
+            last_4_data = [cell.value for cell in data_range[-4:]]
+
             print(last_4_data)    
             # 获取最后4行的数据
             last_4_rows = column_b_data[-4:]
