@@ -164,23 +164,21 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             
-            newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
-            print(newest_four_data)
-            actions = []
-            options = [newest_four_data+ (,)]
-            #options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+            options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            for option in newest_four_data:
+            
+            actions = []
+            options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+            print(options)
+            for option in options:
                 action = MessageTemplateAction(label=option, text=option)
                 actions.append(action)
             
-
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
             template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
                 
             reply_arr.append(template_message)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
-            
         else:         
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
@@ -189,8 +187,9 @@ def handle_message(event):
                 previous_message = event.message.text
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
+        
     reply_arr=tool.create_default_dropdown_menu(reply_arr)
-    reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
+    #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
