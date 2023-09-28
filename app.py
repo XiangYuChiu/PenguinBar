@@ -163,25 +163,16 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             
-            '''
-            worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-        
-            # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
-            non_empty_data=[]
-            for i in range(3,7):
-                non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
-
-            newest_four_data = []
-            answer = ""
-            for i in range(len(non_empty_data[0])):
-              for j in range(len(non_empty_data)):
-                answer += non_empty_data[j][i]+" "
-              newest_four_data.append(answer) 
-              answer = ""
-            '''
             newest_four_data = MoneyReply.lastest_four_data(dt2,gc)
             print(newest_four_data)
+            actions = []
+            options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+            for option in options:
+                action = MessageTemplateAction(label=option, text=option,),
+                actions.append(action)
             
+            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
+            reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
             reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
             
