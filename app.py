@@ -165,10 +165,10 @@ def handle_message(event):
             worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
         
             # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
-            non_empty_data=[4][]
+            non_empty_data=[]
             count = 1
             for i in range(3,6):
-                non_empty_data[count].append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
+                non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
                 count+=1
             print(non_empty_data)
             '''
