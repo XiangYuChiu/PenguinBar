@@ -170,6 +170,7 @@ def handle_message(event):
             for option in newest_four_data:
                 print(option)
                 action = MessageTemplateAction(label=option, text=option,),
+                print(action)
                 actions.append(action)
             '''
             actions=[MessageTemplateAction(label=newest_four_data[0],text=newest_four_data[0],),MessageTemplateAction(label=newest_four_data[1],text=newest_four_data[1],),
