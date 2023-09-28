@@ -179,7 +179,7 @@ def handle_message(event):
             print(type(non_empty_F_data),non_empty_F_data)  
             newest_four_data =[]
             for i in range(0,3):
-                newest_four_data[i]=non_empty_C_data[i]+on_empty_D_data[i]+on_empty_E_data[i]+on_empty_F_data[i]
+                newest_four_data[i]=non_empty_C_data[i]+non_empty_D_data[i]+non_empty_E_data[i]+non_empty_F_data[i]
             print(newest_four_data)
 
             reply_arr=OriginalReply.textReply(reply_arr,newest_four_data)
