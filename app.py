@@ -163,27 +163,22 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            #b_column_values = datasheet.get_col(2, include_tailing_empty=False)
-            # 获取B列的所有数据
-            b_column_data = worksheet.get_col(5)
-            
+        
             # 找到B列非空白的数据的最后4笔新增数据
-            non_empty_b_data = [cell for cell in reversed(b_column_data) if cell.strip() != ""][:4]
-            print(non_empty_b_data)  
-            # 获取与B列对应的C、D、E、F列的最后4笔数据
-            corresponding_data = []
-            for cell in non_empty_b_data:
-                row_number = b_column_data.index(cell) + 1
-                c_data = worksheet.cell(row_number, 3).value
-                d_data = worksheet.cell(row_number, 4).value
-                e_data = worksheet.cell(row_number, 5).value
-                f_data = worksheet.cell(row_number, 6).value
-                corresponding_data.append([cell, c_data, d_data, e_data, f_data])
+            non_empty_C_data = [cell for cell in reversed(worksheet.get_col(3)) if cell.strip() != ""][:4]
+            # 找到B列非空白的数据的最后4笔新增数据
+            non_empty_D_data = [cell for cell in reversed(worksheet.get_col(4)) if cell.strip() != ""][:4]
+            # 找到B列非空白的数据的最后4笔新增数据
+            non_empty_E_data = [cell for cell in reversed(worksheet.get_col(5)) if cell.strip() != ""][:4]
+            # 找到B列非空白的数据的最后4笔新增数据
+            non_empty_F_data = [cell for cell in reversed(worksheet.get_col(6)) if cell.strip() != ""][:4]
             
-            # 格式化输出数据
-            formatted_data = [" ".join(row) for row in corresponding_data]
+            print(type(non_empty_C_data),non_empty_C_data)  
+            print(type(non_empty_D_data),non_empty_D_data)  
+            print(type(non_empty_E_data),non_empty_E_data)  
+            print(type(non_empty_F_data),non_empty_F_data)  
 
-            print(formatted_data)    
+
 
             reply_arr=OriginalReply.textReply(reply_arr,formatted_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
