@@ -169,7 +169,7 @@ def handle_message(event):
             actions = []
             options = ['選項 1', '選項 2', '選項 3', '選項 4',]
             for option in options:
-                action = MessageTemplateAction(label=option, text=option,),
+                action = MessageTemplateAction(label=option, text=option),
                 actions.append(action)
             
             buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
