@@ -163,9 +163,8 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            print("col_values")
             data_range = datasheet.range('B25:B')
-
+            print(data_range)
             # 获取最后4条新增数据
             last_4_data = [cell.value for cell in data_range[-4:]]
 
