@@ -163,16 +163,17 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            data_range = datasheet.get_col(2, start=25, end=None, returnas='matrix', include_empty=False)
-
-            # 获取最后4条新增数据
-            last_4_data = data_range[-4:]
+            b_column_values = datasheet.get_col(2, include_tailing_empty=False)
+            data_after_b25 = b_column_values[24:]  # 从第25行开始的数据
             
-            # 将数据转换为字符串格式
-            formatted_data = '\n'.join([', '.join(map(str, row)) for row in last_4_data])
+            # 获取最后4筆新增的数据
+            last_4_data = data_after_b25[-4:]
+            
+            # 将数据格式化为文本消息
+            #formatted_data = "\n".join(last_4_data)
 
 
-            print(formatted_data)    
+            print(last_4_data)    
 
             reply_arr=OriginalReply.textReply(reply_arr,formatted_data)
             #reply_arr=tool.create_default_dropdown_menu(reply_arr)
