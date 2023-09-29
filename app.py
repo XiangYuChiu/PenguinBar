@@ -167,7 +167,7 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            returnData= MoneyReply.lastest_four_data(x = 3,dt2,gc)
+            returnData= MoneyReply.lastest_four_data(3,dt2,gc)
             reply_arr.append(tool.create_dropdown_menu(options,returnData))
         else:         
             if previous_message:
