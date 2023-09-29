@@ -178,7 +178,6 @@ def handle_message(event):
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
     reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入']))
-    reply_arr=tool.create_default_dropdown_menu(reply_arr)
     #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
