@@ -52,7 +52,6 @@ def handle_message(event):
     currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
     try:
         if(previous_message == '記帳-支出'): 
-            #reply_arr=MoneyReply.MoneyquickReply(reply_arr,event.message.text)
             previous_message = ""
             data_list = event.message.text.split(' ')
             try:
@@ -66,10 +65,7 @@ def handle_message(event):
                 expendituretext = "測試內容"
             money = "NT$ "+money
             #print(data_list,money)
-            try:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
-            except:
-                reply_arr=MoneyReply.expenditure(reply_arr,"新增支出失敗",money,currentTime,outputtype,account,expendituretext)
+            reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
                 
             tool.DataToGoogleSheet(gc,dt2,data_list,'Money')
     
