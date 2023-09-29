@@ -168,37 +168,6 @@ def handle_message(event):
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
             reply_arr.append(tool.create_dropdown_menu())
-            '''
-            # 根据选项数量创建相应数量的按钮
-            #options =["三餐(食) 錢包 星巴克塑膠袋 3 ", "購物(樂) 錢包 五金行 190 ", "三餐(食) LineBank信用卡 星巴克 335 ", "三餐(食) 錢包 宇峰塔帕尼 -75 "]
-            options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
-                
-            actions = []
-                
-            # 根据选项数量创建相应数量的按钮动作
-            for option in options:
-                action = MessageTemplateAction(label=option,text=f'{option}')
-                actions.append(action)
-                
-            # 创建 Buttons Template 消息
-            buttons_template = ButtonsTemplate(title='请选择一个选项',text='请从下面的选项中选择一个',actions=actions)
-                
-            template_message = TemplateSendMessage(alt_text='下拉式选单',template=buttons_template)
-            reply_arr.append(template_message)
-            
-            actions = []
-            options = ['選項 1', '選項 2', '選項 3', '選項 4',]
-            print(options)
-            for option in options:
-                action = MessageTemplateAction(label=option, text=option)
-                actions.append(action)
-            
-            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
-            template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
-                
-            reply_arr.append(template_message)
-            '''
-            #reply_arr=tool.create_default_dropdown_menu(reply_arr)
         else:         
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
@@ -208,6 +177,7 @@ def handle_message(event):
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
+    reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入']))
     reply_arr=tool.create_default_dropdown_menu(reply_arr)
     #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
