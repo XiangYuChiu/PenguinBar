@@ -167,7 +167,7 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            reply_arr.append(tool.create_dropdown_menu(['1111111111','222222222222','22222222222222']))
+            reply_arr.append(tool.create_dropdown_menu(['1111111111','222222222222','2222222222222222222']))
         else:         
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
