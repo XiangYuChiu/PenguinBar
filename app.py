@@ -167,12 +167,19 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            actions=[MessageTemplateAction(label=options[0],text=options[0],),
-                        MessageTemplateAction(label='記帳-收入',text='記帳-收入',),
-                        ]
-                    
-            buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇功能',actions=actions)
-            template_message = TemplateSendMessage(alt_text='下拉式選單', template=buttons_template)
+            # 动态生成选项
+            options = ["Option 1", "Option 2", "Option 3", "Option 4"]  # 这里可以根据需要设置选项
+            
+            # 创建 Quick Reply 按钮
+            quick_reply_buttons = [QuickReplyButton(action=MessageAction(label=option,text=option))
+                for option in options
+            ]
+            
+            # 创建 Quick Reply
+            quick_reply = QuickReply(items=quick_reply_buttons)
+            
+            # 创建包含 Quick Reply 的文本消息
+            text_message = TextSendMessage(text="请选择一个选项：",quick_reply=quick_reply)
                 
             reply_arr.append(template_message)
             '''
