@@ -167,7 +167,7 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            reply_arr.append(tool.create_dropdown_menu(['1111111111',['222222222222']]))
+            reply_arr.append(tool.create_dropdown_menu(['1111111111','222222222222']))
         else:         
             if previous_message:
                 reply_arr=OriginalReply.textReply(reply_arr,previous_message)
@@ -177,7 +177,7 @@ def handle_message(event):
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
-    reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入']))
+    reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入','test']))
     #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
