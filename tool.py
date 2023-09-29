@@ -71,6 +71,8 @@ def two_dimensional_list_intto_str(range_of_cells):
     return result_str
 #創造選單
 def create_dropdown_menu(options=None):
+    # 使用HTML标签来自定义按钮文本的样式，实现居中对齐
+    button_text = "<center>按钮文本居中</center>"
     if options == None:
         options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
                 
