@@ -167,48 +167,32 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            try:
-                # 动态生成选项
-                options = ["Option 1", "Option 2", "Option 3", "Option 4"]  # 这里可以根据需要设置选项
+            
+            # 根据选项数量创建相应数量的按钮
+            options = ["选项 1", "选项 2", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
                 
-                # 创建 Quick Reply 按钮
-                quick_reply_buttons = [QuickReplyButton(action=MessageAction(label=option,text=option))
-                    for option in options
-                ]
+            actions = []
                 
-                # 创建 Quick Reply
-                quick_reply = QuickReply(items=quick_reply_buttons)
-                
-                # 创建包含 Quick Reply 的文本消息
-                text_message = TextSendMessage(text="请选择一个选项：",quick_reply=quick_reply)
-                    
-                reply_arr.append(text_message)
-            except:
-                # 根据选项数量创建相应数量的按钮
-                options = ["选项 1", "选项 2", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
-                
-                actions = []
-                
-                # 根据选项数量创建相应数量的按钮动作
-                for option in options:
-                    action = MessageTemplateAction(
-                        label=option,
-                        text=f'你选择了{option}'
-                    )
-                    actions.append(action)
-                
-                # 创建 Buttons Template 消息
-                buttons_template = ButtonsTemplate(
-                    title='请选择一个选项',
-                    text='请从下面的选项中选择一个',
-                    actions=actions
+            # 根据选项数量创建相应数量的按钮动作
+            for option in options:
+                action = MessageTemplateAction(
+                    label=option,
+                    text=f'你选择了{option}'
                 )
+                actions.append(action)
                 
-                template_message = TemplateSendMessage(
-                    alt_text='下拉式选单',
-                    template=buttons_template
-                )
-                reply_arr.append(template_message)
+            # 创建 Buttons Template 消息
+            buttons_template = ButtonsTemplate(
+                title='请选择一个选项',
+                text='请从下面的选项中选择一个',
+                actions=actions
+            )
+                
+            template_message = TemplateSendMessage(
+                alt_text='下拉式选单',
+                template=buttons_template
+            )
+            reply_arr.append(template_message)
             '''
             actions = []
             options = ['選項 1', '選項 2', '選項 3', '選項 4',]
