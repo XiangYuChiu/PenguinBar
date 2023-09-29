@@ -70,17 +70,21 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #創造選單
-def create_dropdown_menu(reply_arr,options=None):
-    actions = []
+def create_dropdown_menu(options=None):
     if options == None:
-        options = ['選項 1', '選項 2', '選項 3', '選項 4',]
+        options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
+                
+    actions = []           
+    # 根据选项数量创建相应数量的按钮动作
     for option in options:
-        action = MessageTemplateAction(label=option, text=option)
+        action = MessageTemplateAction(label=option,text=f'{option}')
         actions.append(action)
-    
-    buttons_template = ButtonsTemplate(title='請選擇一個選項',  text='請選擇地區',actions=actions)
-    reply_arr.append(TemplateSendMessage(alt_text='下拉式選單', template=buttons_template))
-    return reply_arr
+                
+    # 创建 Buttons Template 消息
+    buttons_template = ButtonsTemplate(title='请选择一个选项',text='请从下面的选项中选择一个',actions=actions)
+                
+    template_message = TemplateSendMessage(alt_text='下拉式选单',template=buttons_template)
+    return template_message
 
 def create_default_dropdown_menu(reply_arr):
     actions = actions=[MessageTemplateAction(label='記帳-支出',text='記帳-支出',),
