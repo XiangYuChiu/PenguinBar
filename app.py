@@ -176,7 +176,7 @@ def handle_message(event):
                 
             # 根据选项数量创建相应数量的按钮动作
             for option in options:
-                action = MessageTemplateAction(label=option,text=f'你选择了{option}')
+                action = MessageTemplateAction(label=option,text=f'{option}')
                 actions.append(action)
                 
             # 创建 Buttons Template 消息
