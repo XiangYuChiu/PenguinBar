@@ -70,16 +70,17 @@ def two_dimensional_list_intto_str(range_of_cells):
     result_str = result_str.strip()
     return result_str
 #創造選單
-def create_dropdown_menu(options=None):
+def create_dropdown_menu(options=None,textdata=None):
     # 使用HTML标签来自定义按钮文本的样式，实现居中对齐
     button_text = "<center>按钮文本居中</center>"
     if options == None:
         options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
-                
+    if textdata == None:
+        textdata = options
     actions = []           
     # 根据选项数量创建相应数量的按钮动作
     for option in options:
-        action = MessageTemplateAction(label=option,text=f'{option}')
+        action = MessageTemplateAction(label=option,text=f'{textdata}')
         actions.append(action)
                 
     # 创建 Buttons Template 消息
