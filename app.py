@@ -167,7 +167,8 @@ def handle_message(event):
             
             options = MoneyReply.lastest_four_data(dt2,gc)
             print(options)
-            
+            reply_arr.append(tool.create_dropdown_menu())
+            '''
             # 根据选项数量创建相应数量的按钮
             #options =["三餐(食) 錢包 星巴克塑膠袋 3 ", "購物(樂) 錢包 五金行 190 ", "三餐(食) LineBank信用卡 星巴克 335 ", "三餐(食) 錢包 宇峰塔帕尼 -75 "]
             options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
@@ -184,7 +185,7 @@ def handle_message(event):
                 
             template_message = TemplateSendMessage(alt_text='下拉式选单',template=buttons_template)
             reply_arr.append(template_message)
-            '''
+            
             actions = []
             options = ['選項 1', '選項 2', '選項 3', '選項 4',]
             print(options)
