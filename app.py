@@ -181,7 +181,7 @@ def handle_message(event):
             # 创建包含 Quick Reply 的文本消息
             text_message = TextSendMessage(text="请选择一个选项：",quick_reply=quick_reply)
                 
-            reply_arr.append(template_message)
+            reply_arr.append(text_message)
             '''
             actions = []
             options = ['選項 1', '選項 2', '選項 3', '選項 4',]
