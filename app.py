@@ -169,29 +169,19 @@ def handle_message(event):
             print(options)
             
             # 根据选项数量创建相应数量的按钮
-            options = ["选项 1", "选项 2", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
+            #options = ["选项 1", "选项 2", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
                 
             actions = []
                 
             # 根据选项数量创建相应数量的按钮动作
             for option in options:
-                action = MessageTemplateAction(
-                    label=option,
-                    text=f'你选择了{option}'
-                )
+                action = MessageTemplateAction(label=option,text=f'你选择了{option}')
                 actions.append(action)
                 
             # 创建 Buttons Template 消息
-            buttons_template = ButtonsTemplate(
-                title='请选择一个选项',
-                text='请从下面的选项中选择一个',
-                actions=actions
-            )
+            buttons_template = ButtonsTemplate(title='请选择一个选项',text='请从下面的选项中选择一个',actions=actions)
                 
-            template_message = TemplateSendMessage(
-                alt_text='下拉式选单',
-                template=buttons_template
-            )
+            template_message = TemplateSendMessage(alt_text='下拉式选单',template=buttons_template)
             reply_arr.append(template_message)
             '''
             actions = []
