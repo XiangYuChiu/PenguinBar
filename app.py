@@ -33,8 +33,12 @@ def callback():
         abort(400)
     return 'OK'
 #===============================================================================
-
-
+def finding_Money_data(DataArea):
+    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+    range_of_cells = datasheet.get_values_batch(DataArea)
+    result_str = tool.two_dimensional_list_intto_str(range_of_cells)
+    return result_str
+#===============================================================================
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 @handler.add(MessageEvent, message=TextMessage)
@@ -139,19 +143,28 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
                                  
         elif(event.message.text == '記帳類別'):
+            '''
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['K3:K11'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
+            '''
+            result_str = finding_Money_data(['K3:K11'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳帳號'):
+            '''
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['H2:H7'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
+            '''
+            result_str = finding_Money_data(['H2:H7'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳格式'):
+            '''
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['C14:F14'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
+            '''
+            result_str = finding_Money_data(['C14:F14'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == '汽機車格式'):
