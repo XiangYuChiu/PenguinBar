@@ -86,7 +86,7 @@ def create_dropdown_menu(options=None,textdata=None):
     # 创建 Buttons Template 消息
     buttons_template = ButtonsTemplate(text='請選擇選項',actions=actions)
                 
-    template_message = TemplateSendMessage(alt_text='下拉式选单',template=buttons_template)
+    template_message = TemplateSendMessage(alt_text='下拉式選單',template=buttons_template)
     return template_message
 
 #===============================================================================
