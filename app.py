@@ -98,6 +98,10 @@ def handle_message(event):
         elif(event.message.text == '記帳-收入'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
             previous_message='記帳-收入'
+        elif(event.message.text == '記帳-計畫'):
+            reply_arr.append(tool.create_dropdown_menu(['記帳類別','記帳帳號','記帳格式']))
+            reply_arr.append(tool.create_dropdown_menu(['當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
@@ -143,27 +147,12 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
                                  
         elif(event.message.text == '記帳類別'):
-            '''
-            datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['K3:K11'])
-            result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            '''
             result_str = finding_Money_data(dt2,gc,['K3:K11'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳帳號'):
-            '''
-            datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['H2:H7'])
-            result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            '''
             result_str = finding_Money_data(dt2,gc,['H2:H7'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳格式'):
-            '''
-            datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-            range_of_cells = datasheet.get_values_batch( ['C14:F14'])
-            result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            '''
             result_str = finding_Money_data(dt2,gc,['C14:F14'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
@@ -186,7 +175,7 @@ def handle_message(event):
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
-    reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入','test']))
+    reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
     #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
