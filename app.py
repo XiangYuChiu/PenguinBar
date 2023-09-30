@@ -33,7 +33,7 @@ def callback():
         abort(400)
     return 'OK'
 #===============================================================================
-def finding_Money_data(DataArea):
+def finding_Money_data(dt2,gc,DataArea):
     datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
     range_of_cells = datasheet.get_values_batch(DataArea)
     result_str = tool.two_dimensional_list_intto_str(range_of_cells)
@@ -148,7 +148,7 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['K3:K11'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             '''
-            result_str = finding_Money_data(['K3:K11'])
+            result_str = finding_Money_data(dt2,gc,['K3:K11'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳帳號'):
             '''
@@ -156,7 +156,7 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['H2:H7'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             '''
-            result_str = finding_Money_data(['H2:H7'])
+            result_str = finding_Money_data(dt2,gc,['H2:H7'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳格式'):
             '''
@@ -164,7 +164,7 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['C14:F14'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             '''
-            result_str = finding_Money_data(['C14:F14'])
+            result_str = finding_Money_data(dt2,gc,['C14:F14'])
             reply_arr=OriginalReply.textReply(reply_arr,result_str)
             
         elif(event.message.text == '汽機車格式'):
