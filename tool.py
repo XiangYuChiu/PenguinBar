@@ -95,7 +95,6 @@ def creat_CarouselColumn(options=None,textdata=None):
             {"title": "选项 1", "description": "描述 1", "textdata": "option1"},
             {"title": "选项 2", "description": "描述 2", "textdata": "option2"},
             {"title": "选项 3", "description": "描述 3", "textdata": "option3"},
-            {"title": "选项 4", "description": "描述 4", "textdata": "option4"},
         ]
     
     # 创建Carousel Column对象列表
