@@ -164,7 +164,7 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
-            
+            reply_arr.append(tool.creat_CarouselColumn())
             
         else:         
             if previous_message:
