@@ -111,9 +111,8 @@ def creat_CarouselColumn(options=None,textdata=None):
     
     # 创建Carousel Template
     carousel_template = CarouselTemplate(columns=carousel_columns)
-    return carousel_template
     '''
-    CarouselColumn(
+    carousel_template=CarouselColumn(
                 thumbnail_image_url='https://example.com/item1.jpg',
                 title='this is menu1',
                 text='description1',
@@ -153,7 +152,7 @@ def creat_CarouselColumn(options=None,textdata=None):
                     )
                 ]
             )
-    return CarouselColumn
+    return carousel_template
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
