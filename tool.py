@@ -88,7 +88,30 @@ def create_dropdown_menu(options=None,textdata=None):
                 
     template_message = TemplateSendMessage(alt_text='下拉式選單',template=buttons_template)
     return template_message
-
+def creat_CarouselColumn(options=None,textdata=None):
+    # 选项列表，每个选项包含标题、描述和URL
+    if options == None:
+        options = [
+            {"title": "选项 1", "description": "描述 1", "textdata": "option1"},
+            {"title": "选项 2", "description": "描述 2", "textdata": "option2"},
+            {"title": "选项 3", "description": "描述 3", "textdata": "option3"},
+            {"title": "选项 4", "description": "描述 4", "textdata": "option4"},
+        ]
+    
+    # 创建Carousel Column对象列表
+    carousel_columns = []
+    for option in options:
+        column = CarouselColumn(
+            thumbnail_image_url='https://example.com/image.jpg',  # 卡片缩略图
+            title=option['title'],
+            text=option['description'],
+            actions=[MessageAction(label='查看详情', text=option['textdata'])]
+        )
+        carousel_columns.append(column)
+    
+    # 创建Carousel Template
+    carousel_template = CarouselTemplate(columns=carousel_columns)
+    return carousel_template
 #===============================================================================
 def month_lessmoney(dt2,gc):
     datasheet,Month = MoneyGoogleSheet(dt2,gc)
