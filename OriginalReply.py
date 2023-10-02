@@ -62,8 +62,9 @@ def DefaultQuickReply(options=None,textdata=None):
                 ]
             )
         ))
-    '''
+    
     return reply_arr
+    '''
 #創造選單
 
 def create_dropdown_menu(options=None,textdata=None):
