@@ -76,7 +76,7 @@ def DefaultQuickReply(options=None,textdata=None):
                     )
                 ]
             )
-        ))
+        )
     
     return text_message
     
