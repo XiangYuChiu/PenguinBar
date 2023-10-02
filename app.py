@@ -91,17 +91,13 @@ def handle_message(event):
                 print("沒有獲取到資料表")
                 datasheet = sheet[0]
             data_list = event.message.text.split(' ')     
-            MD =  dt2.strftime("%m/%d")
-            values = [MD+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
+            values = [dt2.strftime("%m/%d")+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
             try:
                 A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
-                last_row_index = len(A_column_values)
-                datasheet.append_table(start='A' + str(last_row_index + 1), end='A' + str(last_row_index + 1), values=values)
-                #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
+                datasheet.append_table(start='A' + str(len(A_column_values) + 1), end='F' + str(last_row_index + 1), values=values)
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
             reply_arr=OriginalReply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
-            #reply_arr.append(OriginalReply.create_dropdown_menu(previous_message))
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
