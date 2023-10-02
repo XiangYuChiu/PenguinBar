@@ -51,3 +51,60 @@ def DefaultQuickReply(reply_arr):
             )
         ))
     return reply_arr
+#創造選單
+
+def create_dropdown_menu(options=None,textdata=None):
+    # 使用HTML标签来自定义按钮文本的样式，实现居中对齐
+    if options == None:
+        options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
+    if textdata == None:
+        textdata = options
+    actions = []           
+    # 根据选项数量创建相应数量的按钮动作
+    for i in range(len(options)):
+        #print(i,options[i],textdata[i])
+        action = MessageTemplateAction(label=options[i],text=textdata[i])
+        actions.append(action)
+                
+    # 创建 Buttons Template 消息
+    buttons_template = ButtonsTemplate(text='請選擇選項',actions=actions)
+                
+    template_message = TemplateSendMessage(alt_text='下拉式選單',template=buttons_template)
+    return template_message
+    
+def creat_CarouselColumn(options=None,textdata=None):
+    # 选项列表，每个选项包含标题、描述和URL
+    
+    if options == None:
+        options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"]
+    if textdata == None:
+        textdata = options
+    # 创建 CarouselColumn 列表
+    carousel_columns = []
+    
+    for i, option in enumerate(options):
+        # 创建 PostbackAction，这里将选项的文本作为 data 传递
+        action = PostbackAction(label=option, data=textdata[i])
+        
+        # 创建 CarouselColumn
+        column = CarouselColumn(
+            thumbnail_image_url='https://example.com/thumb.jpg',  # 缩略图的 URL
+            title='Option',  # 列的标题
+            text=option,  # 列的文本
+            actions=[action]  # 列的行动
+        )
+        
+        # 将 CarouselColumn 添加到列表
+        carousel_columns.append(column)
+    
+    # 创建 CarouselTemplate
+    carousel_template = CarouselTemplate(columns=carousel_columns)
+    
+    # 创建 TemplateSendMessage 包含 CarouselTemplate
+    template_message = TemplateSendMessage(
+        alt_text='Carousel Template',
+        template=carousel_template,  # 显示 CarouselTemplate
+        image_aspect_ratio='rectangle',  # 图像宽高比为矩形
+        image_size='cover'  # 图像大小为覆盖整个区域
+    )
+    return template_message
