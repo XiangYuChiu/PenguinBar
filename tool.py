@@ -43,8 +43,7 @@ def DataToGoogleSheet(gc,dt2,message,datatype):
     try:
         b_column_values = datasheet.get_col(2, returnas='matrix', include_tailing_empty=False)
         last_row_index = len(b_column_values)
-        datasheet.append_table(start='B' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
-        #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
+        datasheet.append_table(start='B' + str(last_row_index + 1), end='F' + str(last_row_index + 1), values=values)
     except Exception as e:
         print("寫入GoogleSheet error: ",e)
 #===============================================================================
