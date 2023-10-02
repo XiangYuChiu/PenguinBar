@@ -38,11 +38,13 @@ def DefaultQuickReply(options=None,textdata=None):
     # 创建 QuickReplyButton 列表
     quick_reply_buttons = []
     
-    for i in range(len(options)):
+    for option in options:
         # 创建 MessageAction，这里将选项的文本作为消息
-        action = MessageAction(label=options[i], text=textdata[i])
+        action = MessageAction(label=option, text=option)
+        
         # 创建 QuickReplyButton
         button = QuickReplyButton(action=action)
+        
         # 将 QuickReplyButton 添加到列表
         quick_reply_buttons.append(button)
     
