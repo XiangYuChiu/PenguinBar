@@ -31,18 +31,28 @@ def LocalReply(reply_arr,Title,address,Latitude,Longitude):
     return reply_arr
 def DefaultQuickReply(options=None,textdata=None):
     if options == None:
-        options = ["選項 1", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
+        options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
     if textdata == None:
         textdata = options
-    actions = []
-    print(options)
+
+    # 创建 QuickReplyButton 列表
+    quick_reply_buttons = []
+    
     for i in range(len(options)):
-        #print(i,options[i],textdata[i])
-        action = MessageAction(label=options[i],text=textdata[i])
-        actions.append(QuickReplyButton(action))
-    print(actions)
-    template_message=TextSendMessage(text="快速回復選單",sticky=True,quick_reply=QuickReply(items=actions))
-    return template_message
+        # 创建 MessageAction，这里将选项的文本作为消息
+        action = MessageAction(label=options[i], text=textdata[i])
+        # 创建 QuickReplyButton
+        button = QuickReplyButton(action=action)
+        # 将 QuickReplyButton 添加到列表
+        quick_reply_buttons.append(button)
+    
+    # 创建 QuickReply 对象，包含 QuickReplyButton 列表
+    quick_reply = QuickReply(items=quick_reply_buttons)
+    
+    # 创建 TextSendMessage 包含 QuickReply
+    text_message = TextSendMessage(text="请选择一个选项：", quick_reply=quick_reply)
+
+    return text_message
     '''
     reply_arr.append(TextSendMessage(
         text="快速回復選單",
