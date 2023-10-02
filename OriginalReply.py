@@ -38,8 +38,8 @@ def DefaultQuickReply(options=None,textdata=None):
     print(options)
     for i in range(len(options)):
         #print(i,options[i],textdata[i])
-        actio = QuickReplyButton(action=MessageAction(label=options[i],text=textdata[i]))
-        actions.append(actio)
+        action = MessageAction(label=options[i],text=textdata[i])
+        actions.append(QuickReplyButton(action))
     print(actions)
     template_message=TextSendMessage(text="快速回復選單",sticky=True,quick_reply=QuickReply(items=actions))
     return template_message
