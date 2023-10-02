@@ -99,8 +99,11 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
+            '''
             reply_arr.append(tool.create_dropdown_menu(['記帳類別','記帳帳號','記帳格式']))
             reply_arr.append(tool.create_dropdown_menu(['當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            '''
+            reply_arr.append(tool.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
             
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
