@@ -87,23 +87,23 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
         elif(previous_message == '記帳-收入'): 
             previous_message = ""
-            reply_arr.append(tool.create_dropdown_menu(previous_message))
+            reply_arr.append(OriginalReply.create_dropdown_menu(previous_message))
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
             options = MoneyReply.lastest_four_data(dt2,gc)
             ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
-            reply_arr.append(tool.create_dropdown_menu(options,ReturnData))
+            reply_arr.append(OriginalReply.create_dropdown_menu(options,ReturnData))
             
         elif(event.message.text == '記帳-收入'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
             '''
-            reply_arr.append(tool.create_dropdown_menu(['記帳類別','記帳帳號','記帳格式']))
-            reply_arr.append(tool.create_dropdown_menu(['當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            reply_arr.append(OriginalReply.create_dropdown_menu(['記帳類別','記帳帳號','記帳格式']))
+            reply_arr.append(OriginalReply.create_dropdown_menu(['當月剩餘費用','當月信用卡費用','本月記帳統計']))
             '''
-            reply_arr.append(tool.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            reply_arr.append(OriginalReply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
             
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
@@ -167,7 +167,7 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
-            reply_arr.append(tool.creat_CarouselColumn())
+            reply_arr.append(OriginalReply.creat_CarouselColumn())
             
         else:         
             if previous_message:
@@ -178,7 +178,7 @@ def handle_message(event):
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
     if event.message.text != ('記帳-計畫'):  
-        reply_arr.append(tool.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
+        reply_arr.append(OriginalReply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
     #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
