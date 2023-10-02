@@ -89,7 +89,16 @@ def handle_message(event):
             except:
                 print("沒有獲取到資料表")
                 datasheet = sheet[0]
-            data_list = event.message.text.split(' ')
+            data_list = event.message.text.split(' ')     
+            values =  [dt2.strftime("%m/%d")]
+            print(values,type(values))
+            try:
+                A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
+                last_row_index = len(A_column_values)
+                datasheet.append_table(start='A' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
+                #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
+            except Exception as e:
+                print("寫入GoogleSheet error: ",e)
             reply_arr=OriginalReply.textReply(reply_arr,"錢包 : "+str(data_list[0])+"\nLineBank : "+str(data_list[0])+"\n郵局 : "+str(data_list[0])+"\n永豐 : "+str(data_list[0]))
             #reply_arr.append(OriginalReply.create_dropdown_menu(previous_message))
         elif(event.message.text == '記帳-支出'):
