@@ -2,12 +2,8 @@ from flask import Flask, request, abort
 from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
-
-#from datetime import datetime,timezone,timedelta
 import datetime, json,pygsheets
 import OriginalReply,MoneyReply,tool
-
-
 
 app = Flask(__name__)
 
@@ -15,7 +11,6 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('RY6oiNHZMTyvJFwpXuUVt2f5IpoM9pxcZOJzF+gwTwaLczarODcnNFt98B+auDkIYsZbiLDxnUTYzMVpf0Lg7F3zeVLVrLoU5kT5JFHBBHMGm+u6pLOHy0LhqV/0k2Q6cMK7P0KrHYu3KxCk0hUwZgdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
 handler = WebhookHandler('e7ebf837ccbd2bacb20c9f90cea2ff0c')
-
 
 #===============================================================================
 # 監聽所有來自 /callback 的 Post Request
@@ -99,10 +94,6 @@ def handle_message(event):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
-            '''
-            reply_arr.append(OriginalReply.create_dropdown_menu(['記帳類別','記帳帳號','記帳格式']))
-            reply_arr.append(OriginalReply.create_dropdown_menu(['當月剩餘費用','當月信用卡費用','本月記帳統計']))
-            '''
             reply_arr.append(OriginalReply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
             
         elif(event.message.text == '當月剩餘費用'):
@@ -177,9 +168,9 @@ def handle_message(event):
                 previous_message = event.message.text
     except Exception as e:      
         reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
+        
     if event.message.text != ('記帳-計畫'):  
         reply_arr.append(OriginalReply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
-    #reply_arr=OriginalReply.DefaultQuickReply(reply_arr)    
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
