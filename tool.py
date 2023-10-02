@@ -93,13 +93,14 @@ def creat_CarouselColumn(options=None,textdata=None):
     
     if options == None:
         options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"]
-
+    if textdata == None:
+        textdata = options
     # 创建 CarouselColumn 列表
     carousel_columns = []
     
     for i, option in enumerate(options):
         # 创建 PostbackAction，这里将选项的文本作为 data 传递
-        action = PostbackAction(label=option, data=f'selected_option_{i + 1}')
+        action = PostbackAction(label=option, data=textdata[i])
         
         # 创建 CarouselColumn
         column = CarouselColumn(
