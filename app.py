@@ -80,6 +80,7 @@ def handle_message(event):
             
             reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
             reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+            
         elif(previous_message == '記帳-收入'): 
             previous_message = ""
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
@@ -90,12 +91,12 @@ def handle_message(event):
                 print("沒有獲取到資料表")
                 datasheet = sheet[0]
             data_list = event.message.text.split(' ')     
-            values =  [dt2.strftime("%m/%d")]
-            print(values,type(values))
+            MD =  dt2.strftime("%m/%d")
+            values = [MD+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
             try:
                 A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
                 last_row_index = len(A_column_values)
-                datasheet.append_table(start='A' + str(last_row_index + 1), end='B' + str(last_row_index + 1), values=values)
+                datasheet.append_table(start='A' + str(last_row_index + 1), end='A' + str(last_row_index + 1), values=values)
                 #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
