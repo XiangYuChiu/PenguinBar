@@ -35,10 +35,11 @@ def DefaultQuickReply(options=None,textdata=None):
     if textdata == None:
         textdata = options
     actions = []
+    print(options)
     for i in range(len(options)):
         #print(i,options[i],textdata[i])
-        action = QuickReplyButton(label=options[i],text=textdata[i])
-        actions.append(action)
+        actio = QuickReplyButton(action=MessageAction(label=options[i],text=textdata[i])))
+        actions.append(actio)
     template_message=TextSendMessage(text="快速回復選單",sticky=True,quick_reply=QuickReply(items=actions))
     return template_message
     '''
@@ -88,7 +89,6 @@ def create_dropdown_menu(options=None,textdata=None):
     
 def creat_CarouselColumn(options=None,textdata=None):
     # 选项列表，每个选项包含标题、描述和URL
-    
     if options == None:
         options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"]
     if textdata == None:
