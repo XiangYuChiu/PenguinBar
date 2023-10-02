@@ -100,7 +100,8 @@ def handle_message(event):
                 #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
-            reply_arr=OriginalReply.textReply(reply_arr,"錢包 : "+str(data_list[0])+"\nLineBank : "+str(data_list[0])+"\n郵局 : "+str(data_list[0])+"\n永豐 : "+str(data_list[0]))
+                        reply_arr=OriginalReply.textReply(reply_arr,"錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
+            reply_arr=OriginalReply.textReply(reply_arr,"錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
             #reply_arr.append(OriginalReply.create_dropdown_menu(previous_message))
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
@@ -111,6 +112,7 @@ def handle_message(event):
             
         elif(event.message.text == '記帳-收入'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
+            reply_arr=OriginalReply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
             reply_arr.append(OriginalReply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
