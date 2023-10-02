@@ -29,7 +29,7 @@ def SoundReply(reply_arr,url):
 def LocalReply(reply_arr,Title,address,Latitude,Longitude):
     reply_arr.append(LocationSendMessage(title=Title, address=address, latitude=Latitude, longitude=Longitude))
     return reply_arr
-def DefaultQuickReply(reply_arr,options=None,textdata=None):
+def DefaultQuickReply(roptions=None,textdata=None):
     if options == None:
         options = ["選項 1", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
     if textdata == None:
@@ -39,11 +39,8 @@ def DefaultQuickReply(reply_arr,options=None,textdata=None):
         #print(i,options[i],textdata[i])
         action = QuickReplyButton(label=options[i],text=textdata[i])
         actions.append(action)
-    reply_arr.append(TextSendMessage(
-        text="快速回復選單",
-        sticky=True,  # 将 sticky 参数设置为 True
-        quick_reply=QuickReply(items=actions)
-        ))
+    template_message=TextSendMessage(text="快速回復選單",sticky=True,quick_reply=QuickReply(items=actions)))
+    return template_message
     '''
     reply_arr.append(TextSendMessage(
         text="快速回復選單",
