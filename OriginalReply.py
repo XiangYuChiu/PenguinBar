@@ -29,7 +29,22 @@ def SoundReply(reply_arr,url):
 def LocalReply(reply_arr,Title,address,Latitude,Longitude):
     reply_arr.append(LocationSendMessage(title=Title, address=address, latitude=Latitude, longitude=Longitude))
     return reply_arr
-def DefaultQuickReply(reply_arr):
+def DefaultQuickReply(reply_arr,options=None,textdata=None):
+    if options == None:
+        options = ["選項 1", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
+    if textdata == None:
+        textdata = options
+    actions = []
+    for i in range(len(options)):
+        #print(i,options[i],textdata[i])
+        action = QuickReplyButton(label=options[i],text=textdata[i])
+        actions.append(action)
+    reply_arr.append(TextSendMessage(
+        text="快速回復選單",
+        sticky=True,  # 将 sticky 参数设置为 True
+        quick_reply=QuickReply(items=actions)
+        ))
+    '''
     reply_arr.append(TextSendMessage(
         text="快速回復選單",
         sticky=True,  # 将 sticky 参数设置为 True
@@ -50,13 +65,14 @@ def DefaultQuickReply(reply_arr):
                 ]
             )
         ))
+    '''
     return reply_arr
 #創造選單
 
 def create_dropdown_menu(options=None,textdata=None):
     # 使用HTML标签来自定义按钮文本的样式，实现居中对齐
     if options == None:
-        options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "选项 2 ", "选项 3", "选项 4"]  # 这里可以根据你的需求设置选项
+        options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
     if textdata == None:
         textdata = options
     actions = []           
