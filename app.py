@@ -94,7 +94,7 @@ def handle_message(event):
             values = [dt2.strftime("%m/%d")+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
             try:
                 A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
-                datasheet.append_table(start='A' + str(len(A_column_values) + 1), end='F' + str(last_row_index + 1), values=values)
+                datasheet.append_table(start='A' + str(len(A_column_values) + 1), end='F' + str(len(A_column_values) + 1), values=values)
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
             reply_arr=OriginalReply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
