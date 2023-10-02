@@ -100,8 +100,7 @@ def handle_message(event):
                 #datasheet.append_table(values)#這一行資料輸入完整 但是會失敗0727
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
-                        reply_arr=OriginalReply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
-            reply_arr=OriginalReply.textReply(reply_arr,"錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
+            reply_arr=OriginalReply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
             #reply_arr.append(OriginalReply.create_dropdown_menu(previous_message))
         elif(event.message.text == '記帳-支出'):
             reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
