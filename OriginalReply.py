@@ -30,6 +30,7 @@ def LocalReply(reply_arr,Title,address,Latitude,Longitude):
     reply_arr.append(LocationSendMessage(title=Title, address=address, latitude=Latitude, longitude=Longitude))
     return reply_arr
 def DefaultQuickReply(options=None,textdata=None):
+    '''
     if options == None:
         options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
     if textdata == None:
@@ -56,7 +57,7 @@ def DefaultQuickReply(options=None,textdata=None):
 
     return text_message
     '''
-    reply_arr.append(TextSendMessage(
+    text_message=TextSendMessage(
         text="快速回復選單",
         sticky=True,  # 将 sticky 参数设置为 True
         quick_reply=QuickReply(
@@ -77,8 +78,8 @@ def DefaultQuickReply(options=None,textdata=None):
             )
         ))
     
-    return reply_arr
-    '''
+    return text_message
+    
 #創造選單
 
 def create_dropdown_menu(options=None,textdata=None):
