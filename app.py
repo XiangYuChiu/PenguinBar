@@ -3,7 +3,7 @@ from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
 import datetime, json,pygsheets
-import OriginalReply,MoneyReply,tool
+import Reply,MoneyReply,tool
 
 app = Flask(__name__)
 
@@ -78,8 +78,8 @@ def handle_message(event):
             todayMoney = int(datasheet.cell(data_grid+'17').value)
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             
-            reply_arr=OriginalReply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"記帳成功")
+            reply_arr=Reply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
+            reply_arr=Reply.textReply(reply_arr,"記帳成功")
             
         elif(previous_message == '記帳-收入'): 
             previous_message = ""
@@ -97,29 +97,29 @@ def handle_message(event):
                 datasheet.append_table(start='A' + str(len(A_column_values) + 1), end='F' + str(len(A_column_values) + 1), values=values)
             except Exception as e:
                 print("寫入GoogleSheet error: ",e)
-            reply_arr=OriginalReply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
+            reply_arr=Reply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
         elif(event.message.text == '記帳-支出'):
-            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-支出模式')
+            reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
             options = MoneyReply.lastest_four_data(dt2,gc)
             ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
-            reply_arr.append(OriginalReply.create_dropdown_menu(options,ReturnData))
+            reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))
             
         elif(event.message.text == '記帳-收入'):
-            reply_arr=OriginalReply.textReply(reply_arr,'進入記帳-收入模式')
-            reply_arr=OriginalReply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
+            reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
+            reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
-            reply_arr.append(OriginalReply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            reply_arr.append(Reply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
             
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
-            reply_arr=OriginalReply.textReply(reply_arr,RemainingCost)
-            reply_arr=OriginalReply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
+            reply_arr=Reply.textReply(reply_arr,RemainingCost)
+            reply_arr=Reply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
             if expenses_remaining<=200:
-                reply_arr=OriginalReply.textReply(reply_arr,"花太多錢啦!省錢一點")
+                reply_arr=Reply.textReply(reply_arr,"花太多錢啦!省錢一點")
             else:
-                reply_arr=OriginalReply.textReply(reply_arr,"沒有超支 繼續保持!")
+                reply_arr=Reply.textReply(reply_arr,"沒有超支 繼續保持!")
         elif(event.message.text == '當月信用卡費用'):
             LineBank=[]
             DaHo=[]
@@ -137,8 +137,8 @@ def handle_message(event):
                 datasheet,Month = tool.MoneyGoogleSheet(dt2,gc,-1)
                 LineBank.append(datasheet.cell('E11').value)
                 DaHo.append(datasheet.cell('E12').value)
-            reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
+            reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
+            reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
     
         elif(event.message.text == '本月記帳統計'):
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
@@ -153,40 +153,40 @@ def handle_message(event):
             datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
             LineBank=(datasheet.cell('I2').value)
             DaHo=(datasheet.cell('I5').value)
-            reply_arr=OriginalReply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
-            reply_arr=OriginalReply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
+            reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
+            reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
                                  
         elif(event.message.text == '記帳類別'):
             result_str = finding_Money_data(dt2,gc,['K3:K11'])
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
+            reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳帳號'):
             result_str = finding_Money_data(dt2,gc,['H2:H7'])
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
+            reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳格式'):
             result_str = finding_Money_data(dt2,gc,['C14:F14'])
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
+            reply_arr=Reply.textReply(reply_arr,result_str)
             
         elif(event.message.text == '汽機車格式'):
             datasheet = tool.MotorGoogleSheet(dt2,gc)
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            reply_arr=OriginalReply.textReply(reply_arr,result_str)
+            reply_arr=Reply.textReply(reply_arr,result_str)
             
         elif(event.message.text == 'test'):  
             print("Enter test")
-            reply_arr.append(OriginalReply.DefaultQuickReply())
+            reply_arr.append(Reply.DefaultQuickReply())
             
         else:         
             if previous_message:
-                reply_arr=OriginalReply.textReply(reply_arr,previous_message)
+                reply_arr=Reply.textReply(reply_arr,previous_message)
             else:
-                reply_arr=OriginalReply.textReply(reply_arr,"目前還沒有前次訊息")
+                reply_arr=Reply.textReply(reply_arr,"目前還沒有前次訊息")
                 previous_message = event.message.text
     except Exception as e:      
-        reply_arr=OriginalReply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
+        reply_arr=Reply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
     if event.message.text != ('記帳-計畫'):  
-        reply_arr.append(OriginalReply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
+        reply_arr.append(Reply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
