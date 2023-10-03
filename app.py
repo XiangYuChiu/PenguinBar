@@ -162,7 +162,7 @@ def handle_message(event):
             result_str = finding_Money_data(dt2,gc,['K3:K11'])
             reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳帳號'):
-            result_str = finding_Money_data(dt2,gc,['H2:H7'])
+            result_str = finding_Money_data(dt2,gc,['H2:H6'])
             reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '記帳格式'):
             result_str = finding_Money_data(dt2,gc,['C14:F14'])
