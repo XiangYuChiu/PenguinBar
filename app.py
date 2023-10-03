@@ -99,6 +99,7 @@ def handle_message(event):
                 print("寫入GoogleSheet error: ",e)
             reply_arr=Reply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
         elif(event.message.text == '記帳-支出'):
+            print("進入記帳-支出模式")
             reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
             try:
@@ -106,6 +107,7 @@ def handle_message(event):
                 ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
                 reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))
             except:
+                print("進入記帳-支出模式ERROR")
                 reply_arr=Reply.textReply(reply_arr,'新月份歷史紀錄不足')            
         elif(event.message.text == '記帳-收入'):
             reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
