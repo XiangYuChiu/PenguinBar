@@ -83,8 +83,8 @@ def DefaultQuickReply(options=None,textdata=None):
 #創造選單
 
 def create_dropdown_menu(options=None,textdata=None):
-    print("options : \n",options)
-    print("textdata : \n",textdata)
+    print("options : ",options)
+    print("textdata : ",textdata)
     if options == None:
         options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
     if textdata == None:
