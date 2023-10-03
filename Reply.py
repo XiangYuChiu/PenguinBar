@@ -92,7 +92,8 @@ def create_dropdown_menu(options=None,textdata=None):
     actions = []           
     # 根据选项数量创建相应数量的按钮动作
     for i in range(len(options)):
-        #print(i,options[i],textdata[i])
+        print(len(options[i]),options[i])
+        print(len(textdata[i]),textdata[i])
         action = MessageTemplateAction(label=options[i],text=textdata[i])
         actions.append(action)
                 
