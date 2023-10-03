@@ -106,7 +106,7 @@ def handle_message(event):
             print(options)
             ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
             print(ReturnData)
-            reply_arr.append(Reply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
+            reply_arr.append(Reply.create_dropdown_menu(ReturnData))
             #reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))     
             
         elif(event.message.text == '記帳-收入'):
