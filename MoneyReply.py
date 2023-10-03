@@ -4,15 +4,13 @@ import json
 import Reply,tool
 
 
-def lastest_four_data(dt2,gc,x=4,number=4):
+def lastest_four_data(dt2,gc,x=4):
     worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)    
     # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
     non_empty_data=[]
-    try:
-        for i in range(x,7):
-            non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:number])
-    except:
-        self.lastest_four_data(dt2,gc,number=3)
+    for i in range(x,7):
+        non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
+
     newest_four_data = []
     answer = ""
     for i in range(len(non_empty_data[0])):
