@@ -103,7 +103,7 @@ def handle_message(event):
             reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
             previous_message='記帳-支出'
             options = MoneyReply.lastest_four_data(dt2,gc)
-            ReturnData = MoneyReply.lastest_four_data(dt2,gc,4)
+            ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
             #reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))
             reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))     
             
