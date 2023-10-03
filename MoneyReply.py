@@ -10,7 +10,6 @@ def lastest_four_data(dt2,gc,x=4):
     non_empty_data=[]
     for i in range(x,7):
         non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
-
     newest_four_data = []
     answer = ""
     for i in range(len(non_empty_data[0])):
