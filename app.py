@@ -105,7 +105,9 @@ def handle_message(event):
             try:
                 print("進入記帳-支出模式Test")
                 options = MoneyReply.lastest_four_data(dt2,gc)
+                print(options)
                 ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
+                print(ReturnData)
                 reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))
             except:
                 print("進入記帳-支出模式ERROR")
