@@ -4,12 +4,15 @@ import json
 import Reply,tool
 
 
-def lastest_four_data(dt2,gc,x=4):
+def lastest_four_data(dt2,gc,x=4,number=4):
     worksheet,Month = tool.MoneyGoogleSheet(dt2,gc)    
     # 找到C列(3)到F列(6)非空白的数据的最后4笔新增数据
     non_empty_data=[]
-    for i in range(x,7):
-        non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:4])
+    try:
+        for i in range(x,7):
+            non_empty_data.append([cell for cell in reversed(worksheet.get_col(i)) if cell.strip() != ""][:number])
+    except:
+        lastest_four_data(dt2,gc,x=4,number=3)
     newest_four_data = []
     answer = ""
     for i in range(len(non_empty_data[0])):
@@ -18,7 +21,23 @@ def lastest_four_data(dt2,gc,x=4):
         newest_four_data.append(answer) 
         answer = ""
     return newest_four_data
-
+    
+def MoneyquickReply(reply_arr,money):
+    reply_arr.append(TextSendMessage(
+        text="支出還是收入呢",
+        sticky=True,  # 将 sticky 参数设置为 True
+        quick_reply=QuickReply(
+            items=[           
+                QuickReplyButton(
+                    action=MessageAction(label="支出",text=money)
+                    ),
+                QuickReplyButton(
+                    action=MessageAction(label="收入",text="-"+money)
+                    )
+                ]
+            )
+        ))
+    return reply_arr
 
 def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
     reply_arr.append(FlexSendMessage(
@@ -367,22 +386,6 @@ def rankspend(reply_arr,AllMoney,TotalMoney,MoneyType,Money):
     }))
     return reply_arr
 
-def MoneyquickReply(reply_arr,money):
-    reply_arr.append(TextSendMessage(
-        text="支出還是收入呢",
-        sticky=True,  # 将 sticky 参数设置为 True
-        quick_reply=QuickReply(
-            items=[           
-                QuickReplyButton(
-                    action=MessageAction(label="支出",text=money)
-                    ),
-                QuickReplyButton(
-                    action=MessageAction(label="收入",text="-"+money)
-                    )
-                ]
-            )
-        ))
-    return reply_arr
 def expenditure(reply_arr,state,money,formatted_time,outputtype,account,expendituretext):
     reply_arr.append(FlexSendMessage(
             alt_text=state,     
