@@ -83,7 +83,8 @@ def DefaultQuickReply(options=None,textdata=None):
 #創造選單
 
 def create_dropdown_menu(options=None,textdata=None):
-    # 使用HTML标签来自定义按钮文本的样式，实现居中对齐
+    print("options : \n",options)
+    print("textdata : \n",textdata)
     if options == None:
         options = ["三餐(食) 錢包 星巴克塑膠袋 3 ", "選項 2 ", "選項 3", "選項 4"]  # 这里可以根据你的需求设置选项
     if textdata == None:
