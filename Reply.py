@@ -8,7 +8,6 @@ import json
 #傳遞到GoogleSheet所使用的函示庫
 import sys
 import datetime
-import gspread
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 
 app = Flask(__name__)
