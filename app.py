@@ -175,7 +175,7 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
-            reply_arr = Reply.ImageReply(tool.Image_searching("測試"))
+            reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching("測試"))
             #reply_arr.append(tool.Image_searching("測試"))
         else:         
             reply_arr.append(tool.Image_searching(event.message.text))
