@@ -104,8 +104,8 @@ def handle_message(event):
             previous_message='記帳-支出'
             options = MoneyReply.lastest_four_data(dt2,gc)
             ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
-            reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))     
-            
+            #reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))     
+            reply_arr.append(Reply.creat_CarouselColumn(options,ReturnData)))
         elif(event.message.text == '記帳-收入'):
             reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
             reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
