@@ -2,9 +2,7 @@ line-bot-sdk
 flask
 datetime 
 oauth2client
-gspread
 pygsheets
-gunicorn
 re
 os
 urllib
