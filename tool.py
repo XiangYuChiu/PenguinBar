@@ -90,6 +90,7 @@ def month_lessmoney(dt2,gc):
     expenses_remaining=int(Remaining)/(int(total_days_in_month)-int(day))
     return expenses_remaining,RemainingCost
 #===============================================================================
+import re, os, urllib, random
 def Image_searching(Imagename):
     msg = Imagename
     img_search = {'tbm': 'isch', 'q': msg}
