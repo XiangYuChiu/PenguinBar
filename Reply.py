@@ -17,7 +17,7 @@ app = Flask(__name__)
 def textReply(reply_arr,Text):
     reply_arr.append(TextSendMessage(text=Text))
     return reply_arr
-def PictureReply(reply_arr,url):
+def ImageReply(reply_arr,url):
     reply_arr.append(ImageSendMessage(original_content_url=url, preview_image_url=url))
     return reply_arr
 def ViedoReply(reply_arr,url):
