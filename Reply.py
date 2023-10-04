@@ -113,11 +113,10 @@ def creat_CarouselColumn(options=None,textdata=None):
     
     for i, option in enumerate(options):
         # 创建 PostbackAction，这里将选项的文本作为 data 传递
-        action = MessageAction(label=option, text=textdata[i])
-        
+        action = MessageAction(label=option, text=textdata[i])     
         # 创建 CarouselColumn
         column = CarouselColumn(
-            thumbnail_image_url='https://example.com/thumb.jpg',  # 缩略图的 URL
+            thumbnail_image_url=tool.Image_searching(option),  # 缩略图的 URL
             title='Option',  # 列的标题
             text=option,  # 列的文本
             actions=[action]  # 列的行动
