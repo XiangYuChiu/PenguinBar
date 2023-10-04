@@ -178,6 +178,7 @@ def handle_message(event):
             print("Enter test")
             reply_arr.append(tool.Image_searching("測試"))
         else:         
+            reply_arr.append(tool.Image_searching(event.message.text))
             if previous_message:
                 reply_arr=Reply.textReply(reply_arr,previous_message)
             else:
