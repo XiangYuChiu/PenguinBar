@@ -112,6 +112,7 @@ def creat_CarouselColumn(options=None,textdata=None):
     carousel_columns = []
     
     for i, option in enumerate(options):
+        print(option,textdata[i])
         # 创建 PostbackAction，这里将选项的文本作为 data 传递
         action = MessageAction(label=option, text=textdata[i])     
         # 创建 CarouselColumn
