@@ -104,8 +104,8 @@ def handle_message(event):
             previous_message='記帳-支出'
             options = MoneyReply.lastest_four_data(dt2,gc)
             ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
-            #reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))     
-            reply_arr.append(Reply.creat_CarouselColumn(options,ReturnData))
+            reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))    
+            
         elif(event.message.text == '記帳-收入'):
             reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
             reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
@@ -176,9 +176,8 @@ def handle_message(event):
         elif(event.message.text == 'test'):  
             print("Enter test")
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching("測試"))
-            #reply_arr.append(tool.Image_searching("測試"))
         else:         
-            reply_arr.append(tool.Image_searching(event.message.text))
+            reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
             if previous_message:
                 reply_arr=Reply.textReply(reply_arr,previous_message)
             else:
