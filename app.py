@@ -201,7 +201,7 @@ def handle_message(event):
                 original_content_url = random_img_url,
                 preview_image_url    = random_img_url
                 )
-            reply_arr=Reply.ImageReply(reply_arr,message)
+            reply_arr.append(message)
         else:         
             if previous_message:
                 reply_arr=Reply.textReply(reply_arr,previous_message)
