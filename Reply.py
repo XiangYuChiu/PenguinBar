@@ -3,7 +3,7 @@ from linebot import  LineBotApi, WebhookHandler
 from linebot.exceptions import  InvalidSignatureError
 from linebot.models import *
 from datetime import datetime, timedelta
-import json
+import json,tool
 
 #傳遞到GoogleSheet所使用的函示庫
 import sys
