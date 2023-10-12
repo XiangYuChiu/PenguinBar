@@ -186,7 +186,7 @@ def handle_message(event):
     except Exception as e:      
         reply_arr=Reply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
-    if event.message.text != ('記帳-計畫') and ('記帳-支出'):  
+    if event.message.text != ('記帳-計畫') and event.message.text !=('記帳-支出'):  
         reply_arr.append(Reply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
