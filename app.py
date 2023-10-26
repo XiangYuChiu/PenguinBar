@@ -42,8 +42,7 @@ def handle_message(event):
     global previous_message
     print("獲取資料 : ",event.message.text,type(event.message.text))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
-    auth_file = "linebotsheet.json"
-    gc = pygsheets.authorize(service_file = auth_file)
+    gc = pygsheets.authorize(service_file = "linebotsheet.json")
 
     #時間設定
     dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
@@ -179,7 +178,7 @@ def handle_message(event):
             spreadsheet = gc.open_by_url(sheet_url)
             # 指定要複製的工作表名稱
             original_worksheet = spreadsheet.worksheet('記帳模板01')
-            
+            print(original_worksheet)
             # 複製工作表
             copied_worksheet = spreadsheet.add_worksheet('新工作表名稱', source_worksheet=original_worksheet)
 
