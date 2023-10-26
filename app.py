@@ -179,6 +179,7 @@ def handle_message(event):
             original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')            
             # 複製工作表
             copied_worksheet = spreadsheet.add_worksheet(str(int(Month))+"月預算",src_worksheet=original_worksheet)
+            reply_arr=Reply.textReply(reply_arr,'建立新記帳Finish')
         elif(event.message.text == 'test'):  
             print("Enter test")
             
