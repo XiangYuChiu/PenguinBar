@@ -180,7 +180,7 @@ def handle_message(event):
             original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
             print(original_worksheet)
             # 複製工作表
-            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱', src_tuple=original_worksheet, source_worksheet=original_worksheet, index=2)
+            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',source_worksheet=original_worksheet, index=2)
 
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
