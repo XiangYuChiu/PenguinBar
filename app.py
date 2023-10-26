@@ -180,7 +180,18 @@ def handle_message(event):
             original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
             print(original_worksheet)
             # 複製工作表
-            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',source_worksheet=original_worksheet, index=2)
+            # 獲取要複製的現有工作表
+            source_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
+            
+            # 創建一個新工作表
+            new_worksheet = spreadsheet.add_worksheet('新工作表名稱')
+            
+            # 獲取源工作表的所有數據
+            data = source_worksheet.get_all_values()
+            
+            # 使用新工作表寫入源工作表的數據
+            new_worksheet.update_values(data)
+            #copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',source_worksheet=original_worksheet, index=2)
 
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
