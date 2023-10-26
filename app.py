@@ -179,7 +179,7 @@ def handle_message(event):
             spreadsheet = gc.open_by_url(sheet_url)
             # 获取要复制的原始表格（Worksheet）
             original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
-            
+            spreadsheet.sheets_copy_to('記帳模板01', '新表格的名称', '新表格的名称')
             # 复制原始表格到新的表格名称
             new_worksheet = original_worksheet.copy('新表格的名称')
             # 保存新表格
