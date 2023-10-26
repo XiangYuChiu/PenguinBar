@@ -177,7 +177,7 @@ def handle_message(event):
             print("Enter test")
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             spreadsheet = gc.open_by_url(sheet_url)
-            worksheet = spreadsheet.add_worksheet('新表格的名称',src_worksheet='記帳模板01')
+            worksheet = spreadsheet.add_worksheet('新表格的名称',src_tuple='記帳模板01')
             
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
