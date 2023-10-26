@@ -175,11 +175,18 @@ def handle_message(event):
             
         elif(event.message.text == 'test'):  
             print("Enter test")
+            sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
+            spreadsheet = gc.open_by_url(sheet_url)
             # 获取要复制的原始表格（Worksheet）
             original_worksheet = spreadsheet.worksheet('記帳模板01')
             
             # 复制原始表格到新的表格名称
             new_worksheet = original_worksheet.copy('新表格的名称')
+            # 保存新表格
+            new_worksheet.update_value('A1', '新的数据')
+            
+            # 保存修改
+            new_worksheet.sync()
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
             if previous_message:
