@@ -172,12 +172,13 @@ def handle_message(event):
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '建立新記帳'): 
+            Month = dt2.strftime("%m")
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             spreadsheet = gc.open_by_url(sheet_url)
             # 指定要複製的工作表名稱
             original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')            
             # 複製工作表
-            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',src_worksheet=original_worksheet)
+            copied_worksheet = spreadsheet.add_worksheet(str(int(Month))+"月預算",src_worksheet=original_worksheet)
         elif(event.message.text == 'test'):  
             print("Enter test")
             
