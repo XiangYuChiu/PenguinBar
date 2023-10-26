@@ -181,7 +181,7 @@ def handle_message(event):
             print(original_worksheet)
             
             # 複製工作表
-            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',src_tuple=('新工作表名稱',original_worksheet), index=2)
+            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',src_tuple=('新工作表名稱',original_worksheet))
 
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
