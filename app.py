@@ -177,13 +177,11 @@ def handle_message(event):
             print("Enter test")
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             spreadsheet = gc.open_by_url(sheet_url)
-            worksheet = spreadsheet.add_worksheet('新表格的名称',src_tuple=spreadsheet[1],src_worksheet=spreadsheet[1])
             # 指定要複製的工作表名稱
             original_worksheet = spreadsheet.worksheet('記帳模板01')
-            new_worksheet_name = '新工作表名稱'
             
             # 複製工作表
-            copied_worksheet = spreadsheet.add_worksheet(new_worksheet_name, source_worksheet=original_worksheet)
+            copied_worksheet = spreadsheet.add_worksheet('新工作表名稱', source_worksheet=original_worksheet)
 
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
