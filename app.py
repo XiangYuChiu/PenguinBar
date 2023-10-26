@@ -110,7 +110,7 @@ def handle_message(event):
             reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')           
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
-            reply_arr.append(Reply.creat_CarouselColumn(['記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
+            reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
             
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
@@ -171,17 +171,16 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch( ['B6:E6'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             reply_arr=Reply.textReply(reply_arr,result_str)
-            
-        elif(event.message.text == 'test'):  
-            print("Enter test")
+        elif(event.message.text == '建立新記帳'): 
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             spreadsheet = gc.open_by_url(sheet_url)
             # 指定要複製的工作表名稱
-            original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
-            print(original_worksheet)
-            
+            original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')            
             # 複製工作表
             copied_worksheet = spreadsheet.add_worksheet('新工作表名稱',src_worksheet=original_worksheet)
+        elif(event.message.text == 'test'):  
+            print("Enter test")
+            
 
         else:         
             reply_arr = Reply.ImageReply(reply_arr,tool.Image_searching(event.message.text))
