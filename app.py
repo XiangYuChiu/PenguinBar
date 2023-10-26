@@ -178,7 +178,7 @@ def handle_message(event):
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             spreadsheet = gc.open_by_url(sheet_url)
             # 获取要复制的原始表格（Worksheet）
-            original_worksheet = spreadsheet.worksheet('記帳模板01')
+            original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')
             
             # 复制原始表格到新的表格名称
             new_worksheet = original_worksheet.copy('新表格的名称')
