@@ -91,8 +91,8 @@ def create_dropdown_menu(options=None,textdata=None):
     actions = []           
     # 根据选项数量创建相应数量的按钮动作
     for i in range(len(options)):
-        print(len(options[i]),options[i])
-        print(len(textdata[i]),textdata[i])
+        #print(len(options[i]),options[i])
+        #print(len(textdata[i]),textdata[i])
         action = MessageTemplateAction(label=options[i],text=textdata[i])
         actions.append(action)
                 
@@ -112,7 +112,7 @@ def creat_CarouselColumn(options=None,textdata=None):
     carousel_columns = []
     
     for i, option in enumerate(options):
-        print(option,textdata[i])
+        #print(option,textdata[i])
         # 创建 PostbackAction，这里将选项的文本作为 data 传递
         action = MessageAction(label=option, text=textdata[i])     
         # 创建 CarouselColumn
