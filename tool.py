@@ -10,13 +10,13 @@ def MoneyGoogleSheet(dt2,gc,move=0):
     #print('MoneyGoogleSheet')
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = gc.open_by_url(sheet_url)
+		 Month = dt2.strftime("%m")
     try:
         Month = dt2.strftime("%m")
         print(str(int(Month))+"月預算")
         datasheet = sheet.worksheet_by_title(str(int(Month)+int(move))+"月預算")
     except:
         print("沒有獲取到資料表")
-					Month = dt2.strftime("%m")
         # 指定要複製的工作表名稱
         original_worksheet = sheet.worksheet_by_title('記帳模板01')            
         # 複製工作表
