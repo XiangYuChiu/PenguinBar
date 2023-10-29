@@ -16,7 +16,13 @@ def MoneyGoogleSheet(dt2,gc,move=0):
         datasheet = sheet.worksheet_by_title(str(int(Month)+int(move))+"月預算")
     except:
         print("沒有獲取到資料表")
-        datasheet = sheet[1]
+					Month = dt2.strftime("%m")
+        # 指定要複製的工作表名稱
+        original_worksheet = sheet.worksheet_by_title('記帳模板01')            
+        # 複製工作表
+        copied_worksheet = sheet.add_worksheet(str(int(Month))+"月預算",src_worksheet=original_worksheet, index=2)
+        print("新增資料表成功")
+        #datasheet = sheet[1]
     return datasheet,Month
 def TestGoogleSheet(dt2,gc):  
     sheet_url = "https://docs.google.com/v/d/1nwrWBRMlfm-9oAnIeSXfuw5qKxqa4B4HCxCIUf36faM/edit#gid=0/"
