@@ -12,7 +12,6 @@ def MoneyGoogleSheet(dt2,gc,move=0):
     sheet = gc.open_by_url(sheet_url)
     Month = dt2.strftime("%m")
     try:
-        Month = dt2.strftime("%m")
         print(str(int(Month))+"月預算")
         datasheet = sheet.worksheet_by_title(str(int(Month)+int(move))+"月預算")
     except:
