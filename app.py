@@ -119,12 +119,7 @@ def handle_message(event):
             range_of_cells = datasheet.get_values_batch(['C4:F4'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
             print(result_str)
-            result_str[0]="錢包 : "+str(result_str[0])
-            result_str[1]="LineBank : "+str(result_str[1])
-            result_str[2]="中華郵政 : "+str(result_str[2])
-            result_str[3]="永豐大戶 : "+str(result_str[3])
-            print(result_str)
-            reply_arr=Reply.textReply(reply_arr,"錢包 : "+str(result_str[0])+"\nLineBank : "+str(result_str[1])+"\n中華郵政 : "+str(result_str[2])+"\n永豐大戶 : "+str(result_str[3]))
+            reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             reply_arr=Reply.textReply(reply_arr,RemainingCost)
