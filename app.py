@@ -113,11 +113,15 @@ def handle_message(event):
             reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
         elif(even.message.text == '帳戶餘額'):
             print("帳戶餘額")    
-            
-            
+            sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
+            sheet = gc.open_by_url(sheet_url)
+            datasheet = sheet.worksheet_by_title("總覽")
             range_of_cells = datasheet.get_values_batch(['C4:F4'])
             result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            result_str = finding_Money_data(dt2,gc,['K3:K11'])
+            result_str[0]="錢包 : "+result_str[0]
+            result_str[1]="LineBank : "+result_str[1]
+            result_str[2]="中華郵政 : "+result_str[2]
+            result_str[3]="永豐大戶 : "+result_str[3]
             reply_arr=Reply.textReply(reply_arr,result_str)
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
