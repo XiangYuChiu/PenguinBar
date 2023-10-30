@@ -21,6 +21,7 @@ def MoneyGoogleSheet(dt2,gc,move=0):
         # 複製工作表
         copied_worksheet = sheet.add_worksheet(str(int(Month))+"月預算",src_worksheet=original_worksheet, index=2)
         print("新增資料表成功")
+        continue
         #datasheet = sheet[1]
     return datasheet,Month
 def TestGoogleSheet(dt2,gc):  
