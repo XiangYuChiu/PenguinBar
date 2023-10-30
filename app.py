@@ -111,7 +111,7 @@ def handle_message(event):
             previous_message='記帳-收入'
         elif(event.message.text == '記帳-計畫'):
             reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
-        elif(even.message.text == '帳戶餘額'):
+        elif(event.message.text == '帳戶餘額'):
             print("帳戶餘額")    
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             sheet = gc.open_by_url(sheet_url)
