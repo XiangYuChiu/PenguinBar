@@ -125,7 +125,7 @@ def handle_message(event):
             for i in range(len(account)):
                 finial+=(account[i]+" : "+balance[i]+"$"+"\n")
             print(finial)
-            reply_arr=Reply.textReply(reply_arr,finial')
+            reply_arr=Reply.textReply(reply_arr,finial)
             #reply_arr.append(Reply.creat_CarouselColumn(finial))
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
