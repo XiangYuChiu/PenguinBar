@@ -11,7 +11,12 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('RY6oiNHZMTyvJFwpXuUVt2f5IpoM9pxcZOJzF+gwTwaLczarODcnNFt98B+auDkIYsZbiLDxnUTYzMVpf0Lg7F3zeVLVrLoU5kT5JFHBBHMGm+u6pLOHy0LhqV/0k2Q6cMK7P0KrHYu3KxCk0hUwZgdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
 handler = WebhookHandler('e7ebf837ccbd2bacb20c9f90cea2ff0c')
-
+#===============================================================================
+def finding_Money_data(dt2,gc,DataArea):
+    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+    range_of_cells = datasheet.get_values_batch(DataArea)
+    result_str = tool.two_dimensional_list_intto_str(range_of_cells)
+    return result_str
 #===============================================================================
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -28,12 +33,7 @@ def callback():
         abort(400)
     return 'OK'
 #===============================================================================
-def finding_Money_data(dt2,gc,DataArea):
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-    range_of_cells = datasheet.get_values_batch(DataArea)
-    result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-    return result_str
-#===============================================================================
+
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 @handler.add(MessageEvent, message=TextMessage)
