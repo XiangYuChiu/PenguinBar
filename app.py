@@ -123,7 +123,7 @@ def handle_message(event):
             print(len(account),balance,account)
             finial = []
             for i in range(len(account)):
-                finial.append(account[i]+" : "+balance[i]+"$\n")
+                finial.append(account[i]+" : "+balance[i]+"$")
             print(finial)
             reply_arr.append(Reply.creat_CarouselColumn(finial))
         elif(event.message.text == '當月剩餘費用'):
