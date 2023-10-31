@@ -116,10 +116,15 @@ def handle_message(event):
             sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
             sheet = gc.open_by_url(sheet_url)
             datasheet = sheet.worksheet_by_title("總覽")
-            range_of_cells = datasheet.get_values_batch(['C4:F4'])
-            result_str = tool.two_dimensional_list_intto_str(range_of_cells)
-            print(result_str)
-            reply_arr=Reply.textReply(reply_arr,result_str)
+            balance = datasheet.get_values_batch(['C4:F4'])
+            account = datasheet.get_values_batch(['C5:F5'])
+            balance = tool.two_dimensional_list_intto_str(balance)
+            account = tool.two_dimensional_list_intto_str(account)
+            finial = []
+            for i in range(len(account)):
+                finial.append(account[i]+" : "+balance[i])
+            print(finial)
+            reply_arr=Reply.textReply(reply_arr,finial)
         elif(event.message.text == '當月剩餘費用'):
             expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
             reply_arr=Reply.textReply(reply_arr,RemainingCost)
