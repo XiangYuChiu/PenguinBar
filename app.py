@@ -117,9 +117,9 @@ def handle_message(event):
             sheet = gc.open_by_url(sheet_url)
             datasheet = sheet.worksheet_by_title("總覽")
             balance = datasheet.get_values_batch(['C4:F4'])
+            balance = [item for sublist1 in balance for sublist2 in sublist1 for item in sublist2]
             account = datasheet.get_values_batch(['C5:F5'])
-            balance = tool.two_dimensional_list_intto_str(balance)
-            account = tool.two_dimensional_list_intto_str(account)
+            account = [item for sublist1 in account for sublist2 in sublist1 for item in sublist2]
             print(len(account),balance,account)
             finial = []
             for i in range(len(account)):
