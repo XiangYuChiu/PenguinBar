@@ -120,6 +120,7 @@ def handle_message(event):
             account = datasheet.get_values_batch(['C5:F5'])
             balance = tool.two_dimensional_list_intto_str(balance)
             account = tool.two_dimensional_list_intto_str(account)
+            print(len(account),balance,account)
             finial = []
             for i in range(len(account)):
                 finial.append(account[i]+" : "+balance[i])
