@@ -12,8 +12,8 @@ line_bot_api = LineBotApi('RY6oiNHZMTyvJFwpXuUVt2f5IpoM9pxcZOJzF+gwTwaLczarODcnN
 # Channel Secret
 handler = WebhookHandler('e7ebf837ccbd2bacb20c9f90cea2ff0c')
 #===============================================================================
-def finding_Money_data(dt2,gc,DataArea):
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+def finding_Money_data(timer,GoogleSheet,DataArea):
+    datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
     range_of_cells = datasheet.get_values_batch(DataArea)
     result_str = tool.two_dimensional_list_intto_str(range_of_cells)
     return result_str
@@ -38,8 +38,8 @@ def Accounting_Expenses():
     print("進入記帳-支出模式")
     reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
     previous_message='記帳-支出'
-    options = MoneyReply.lastest_four_data(dt2,gc)
-    ReturnData = MoneyReply.lastest_four_data(dt2,gc,3)
+    options = MoneyReply.lastest_four_data(timer,GoogleSheet)
+    ReturnData = MoneyReply.lastest_four_data(timer,GoogleSheet,3)
     reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))  
     
 def Accounting_Income():
@@ -51,9 +51,9 @@ def Accounting_Plan():
     reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
     
 def Create_New_Accounting():
-    Month = dt2.strftime("%m")
+    Month = timer.strftime("%m")
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
-    spreadsheet = gc.open_by_url(sheet_url)
+    spreadsheet = GoogleSheet.open_by_url(sheet_url)
     # 指定要複製的工作表名稱
     original_worksheet = spreadsheet.worksheet_by_title('記帳模板01')            
     # 複製工作表
@@ -63,7 +63,7 @@ def Create_New_Accounting():
 def Account_Balance():
     print("帳戶餘額")    
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
-    sheet = gc.open_by_url(sheet_url)
+    sheet = GoogleSheet.open_by_url(sheet_url)
     datasheet = sheet.worksheet_by_title("總覽")
     balance = datasheet.get_values_batch(['C4:F4'])
     balance = [item for sublist1 in balance for sublist2 in sublist1 for item in sublist2]
@@ -78,20 +78,20 @@ def Account_Balance():
     #reply_arr.append(Reply.creat_CarouselColumn(finial))
 
 def Accounting_Category():
-    result_str = finding_Money_data(dt2,gc,['K3:K11'])
+    result_str = finding_Money_data(timer,GoogleSheet,['K3:K11'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     
 def Accounting_Account():
-    result_str = finding_Money_data(dt2,gc,['H2:H6'])
+    result_str = finding_Money_data(timer,GoogleSheet,['H2:H6'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     
 def Accounting_Format():
-    result_str = finding_Money_data(dt2,gc,['C14:F14'])
+    result_str = finding_Money_data(timer,GoogleSheet,['C14:F14'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     
 def Remaining_Expenses_for_the_Month():
-    expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
-    reply_arr=Reply.textReply(reply_arr,RemainingCost)
+    expenses_remaining,RemaininGoogleSheetost=tool.month_lessmoney(timer,GoogleSheet)
+    reply_arr=Reply.textReply(reply_arr,RemaininGoogleSheetost)
     reply_arr=Reply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
     if expenses_remaining<=200:
         reply_arr=Reply.textReply(reply_arr,"花太多錢啦!省錢一點")
@@ -101,25 +101,25 @@ def Remaining_Expenses_for_the_Month():
 def CreditCard_Charges_for_the_Month():
     LineBank=[]
     DaHo=[]
-    if(int(dt2.strftime("%d"))>=12):
-        datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+    if(int(timer.strftime("%d"))>=12):
+        datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
         LineBank.append(datasheet.cell('E11').value)
         DaHo.append(datasheet.cell('E12').value)
-        datasheet,Month = tool.MoneyGoogleSheet(dt2,gc,1)
+        datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet,1)
         LineBank.append(datasheet.cell('E9').value)
         DaHo.append(datasheet.cell('E10').value)
     else:
-        datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+        datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
         LineBank.append(datasheet.cell('E9').value)
         DaHo.append(datasheet.cell('E10').value)
-        datasheet,Month = tool.MoneyGoogleSheet(dt2,gc,-1)
+        datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet,-1)
         LineBank.append(datasheet.cell('E11').value)
         DaHo.append(datasheet.cell('E12').value)
     reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
     
 def Accounting_Statistics_for_this_Month():
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+    datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
     MoneyType = datasheet.get_values_batch( ['K2:K11'])
     MoneyType = [item for sublist1 in MoneyType for sublist2 in sublist1 for item in sublist2]
     Money = datasheet.get_values_batch( ['L2:L11'])
@@ -128,14 +128,14 @@ def Accounting_Statistics_for_this_Month():
     AllMoney = datasheet.cell('D3')
     reply_arr=MoneyReply.rankspend(reply_arr,AllMoney.value,TotalMoney.value,MoneyType,Money)
     
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
+    datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
     LineBank=(datasheet.cell('I2').value)
     DaHo=(datasheet.cell('I5').value)
     reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
     
 def Automobile_and_Motorcycle_Format():
-    datasheet = tool.MotorGoogleSheet(dt2,gc)
+    datasheet = tool.MotorGoogleSheet(timer,GoogleSheet)
     range_of_cells = datasheet.get_values_batch( ['B6:E6'])
     result_str = tool.two_dimensional_list_intto_str(range_of_cells)
     reply_arr=Reply.textReply(reply_arr,result_str)
@@ -157,17 +157,17 @@ def Previous_Accounting_Expenses():
     #print(data_list,money)
     reply_arr=MoneyReply.expenditure(reply_arr,"新增支出成功",money,currentTime,outputtype,account,expendituretext)
                 
-    tool.DataToGoogleSheet(gc,dt2,data_list,'Money')
+    tool.DataToGoogleSheet(GoogleSheet,timer,data_list,'Money')
     
-    datasheet,Month = tool.MoneyGoogleSheet(dt2,gc)
-    day=int(dt2.strftime("%d"))
+    datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
+    day=int(timer.strftime("%d"))
     if day > 20:
         data_grid="A"+chr(int(day+44))
     else:
         data_grid=chr(int(ord('F'))+int(day))
                 
     todayMoney = int(datasheet.cell(data_grid+'17').value)
-    expenses_remaining,RemainingCost=tool.month_lessmoney(dt2,gc)
+    expenses_remaining,RemaininGoogleSheetost=tool.month_lessmoney(timer,GoogleSheet)
             
     reply_arr=Reply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
     reply_arr=Reply.textReply(reply_arr,"記帳成功")
@@ -175,14 +175,14 @@ def Previous_Accounting_Expenses():
 def Previous_Accounting_Income():
     previous_message = ""
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
-    sheet = gc.open_by_url(sheet_url)
+    sheet = GoogleSheet.open_by_url(sheet_url)
     try:
         datasheet = sheet.worksheet_by_title("總覽")
     except:
         print("沒有獲取到資料表")
         datasheet = sheet[0]
     data_list = event.message.text.split(' ')     
-    values = [dt2.strftime("%m/%d")+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
+    values = [timer.strftime("%m/%d")+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
     try:
         A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
         datasheet.append_table(start='A' + str(len(A_column_values) + 1), end='F' + str(len(A_column_values) + 1), values=values)
@@ -196,21 +196,21 @@ previous_message = ""#記憶以前的訊息
 expenses_remaining=""
 callback_dict={
     "記帳-支出":Accounting_Expenses,
-    "記帳-收入",Accounting_Income,
-    "記帳-計畫",Accounting_Plan,
-    "建立新記帳",Create_New_Accounting,
-    "帳戶餘額",Account_Balance,
-    "記帳類別",Accounting_Category,
-    "記帳帳號",Accounting_Account,
-    "記帳格式",Accounting_Format,
-    "當月剩餘費用",Remaining_Expenses_for_the_Month,
-    "當月信用卡費用",CreditCard_Charges_for_the_Month,
-    "本月記帳統計",Accounting_Statistics_for_this_Month,
-    "汽機車格式",Automobile_and_Motorcycle_Format
+    "記帳-收入":Accounting_Income,
+    "記帳-計畫":Accounting_Plan,
+    "建立新記帳":Create_New_Accounting,
+    "帳戶餘額":Account_Balance,
+    "記帳類別":Accounting_Category,
+    "記帳帳號":Accounting_Account,
+    "記帳格式":Accounting_Format,
+    "當月剩餘費用":Remaining_Expenses_for_the_Month,
+    "當月信用卡費用":CreditCard_Charges_for_the_Month,
+    "本月記帳統計":Accounting_Statistics_for_this_Month,
+    "汽機車格式":Automobile_and_Motorcycle_Format
 }
 previous_dict={
     "記帳-支出":Previous_Accounting_Expenses,
-    "記帳-收入",Previous_Accounting_Income,
+    "記帳-收入":Previous_Accounting_Income,
 }
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -218,16 +218,15 @@ def handle_message(event):
     message = event.message.text
     print("獲取資料 : ",message,type(message))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
-    gc = pygsheets.authorize(service_file = "linebotsheet.json")
+    global GoogleSheet = pygsheets.authorize(service_file = "linebotsheet.json")
 
     #時間設定
     dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-    dt2 = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
-    currentTime = dt2.strftime("%Y-%m-%d %H:%M:%S")
+    global timer = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
+    currentTime = timer.strftime("%Y-%m-%d %H:%M:%S")
     try:
         if message == 'test':
             print("Enter test")
-            
         elif previous_message != "":
             previous_dict.get(message)
         else:
