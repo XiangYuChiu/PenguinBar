@@ -33,7 +33,6 @@ def callback():
         abort(400)
     return 'OK'
 #===============================================================================
-reply_arr=[]
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 
@@ -228,7 +227,7 @@ previous_dict={
 }
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global previous_message,reply_arr,GoogleSheet,timer
+    global previous_message,GoogleSheet,timer
     message = event.message.text
     print("獲取資料 : ",message,type(message))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
