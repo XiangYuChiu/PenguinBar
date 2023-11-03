@@ -33,6 +33,9 @@ def callback():
         abort(400)
     return 'OK'
 #===============================================================================
+reply_arr=[]
+previous_message = ""#記憶以前的訊息    
+expenses_remaining=""
 
 def Accounting_Expenses():
     print("進入記帳-支出模式")
@@ -191,9 +194,7 @@ def Previous_Accounting_Income():
     reply_arr=Reply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
 
 #===============================================================================
-reply_arr=[]
-previous_message = ""#記憶以前的訊息    
-expenses_remaining=""
+
 callback_dict={
     "記帳-支出":Accounting_Expenses,
     "記帳-收入":Accounting_Income,
