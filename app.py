@@ -156,6 +156,7 @@ def Automobile_and_Motorcycle_Format(reply_arr):
     
 #===============================================================================
 def Previous_Accounting_Expenses(reply_arr):
+    print("進入支出紀錄")
     previous_message = ""
     data_list = event.message.text.split(' ')
     try:
@@ -188,6 +189,7 @@ def Previous_Accounting_Expenses(reply_arr):
     return reply_arr
     
 def Previous_Accounting_Income(reply_arr):
+    print("進入收入紀錄")
     previous_message = ""
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = GoogleSheet.open_by_url(sheet_url)
