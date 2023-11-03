@@ -37,7 +37,7 @@ reply_arr=[]
 previous_message = ""#記憶以前的訊息    
 expenses_remaining=""
 
-def Accounting_Expenses():
+def Accounting_Expenses(reply_arr):
     print("進入記帳-支出模式")
     reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
     previous_message='記帳-支出'
@@ -46,17 +46,17 @@ def Accounting_Expenses():
     reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))  
     return reply_arr
     
-def Accounting_Income():
+def Accounting_Income(reply_arr):
     previous_message='記帳-收入'
     reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
     reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')    
     return reply_arr
     
-def Accounting_Plan():
+def Accounting_Plan(reply_arr):
     reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
     return reply_arr
     
-def Create_New_Accounting():
+def Create_New_Accounting(reply_arr):
     Month = timer.strftime("%m")
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     spreadsheet = GoogleSheet.open_by_url(sheet_url)
@@ -67,7 +67,7 @@ def Create_New_Accounting():
     reply_arr=Reply.textReply(reply_arr,'建立新記帳Finish')
     return reply_arr
     
-def Account_Balance():
+def Account_Balance(reply_arr):
     print("帳戶餘額")    
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = GoogleSheet.open_by_url(sheet_url)
@@ -85,22 +85,22 @@ def Account_Balance():
     #reply_arr.append(Reply.creat_CarouselColumn(finial))
     return reply_arr
 
-def Accounting_Category():
+def Accounting_Category(reply_arr):
     result_str = finding_Money_data(timer,GoogleSheet,['K3:K11'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     return reply_arr
     
-def Accounting_Account():
+def Accounting_Account(reply_arr):
     result_str = finding_Money_data(timer,GoogleSheet,['H2:H6'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     return reply_arr
     
-def Accounting_Format():
+def Accounting_Format(reply_arr):
     result_str = finding_Money_data(timer,GoogleSheet,['C14:F14'])
     reply_arr=Reply.textReply(reply_arr,result_str)
     return reply_arr
     
-def Remaining_Expenses_for_the_Month():
+def Remaining_Expenses_for_the_Month(reply_arr):
     expenses_remaining,RemaininGoogleSheetost=tool.month_lessmoney(timer,GoogleSheet)
     reply_arr=Reply.textReply(reply_arr,RemaininGoogleSheetost)
     reply_arr=Reply.textReply(reply_arr,"平均每日伙食費剩下 : "+str("{:.2f}".format(expenses_remaining))+"元")
@@ -110,7 +110,7 @@ def Remaining_Expenses_for_the_Month():
         reply_arr=Reply.textReply(reply_arr,"沒有超支 繼續保持!")
     return reply_arr
         
-def CreditCard_Charges_for_the_Month():
+def CreditCard_Charges_for_the_Month(reply_arr):
     LineBank=[]
     DaHo=[]
     if(int(timer.strftime("%d"))>=12):
@@ -131,7 +131,7 @@ def CreditCard_Charges_for_the_Month():
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
     return reply_arr
     
-def Accounting_Statistics_for_this_Month():
+def Accounting_Statistics_for_this_Month(reply_arr):
     datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
     MoneyType = datasheet.get_values_batch( ['K2:K11'])
     MoneyType = [item for sublist1 in MoneyType for sublist2 in sublist1 for item in sublist2]
@@ -148,7 +148,7 @@ def Accounting_Statistics_for_this_Month():
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
     return reply_arr
     
-def Automobile_and_Motorcycle_Format():
+def Automobile_and_Motorcycle_Format(reply_arr):
     datasheet = tool.MotorGoogleSheet(timer,GoogleSheet)
     range_of_cells = datasheet.get_values_batch( ['B6:E6'])
     result_str = tool.two_dimensional_list_intto_str(range_of_cells)
@@ -156,7 +156,7 @@ def Automobile_and_Motorcycle_Format():
     return reply_arr
     
 #===============================================================================
-def Previous_Accounting_Expenses():
+def Previous_Accounting_Expenses(reply_arr):
     previous_message = ""
     data_list = event.message.text.split(' ')
     try:
@@ -188,7 +188,7 @@ def Previous_Accounting_Expenses():
     reply_arr=Reply.textReply(reply_arr,"記帳成功")
     return reply_arr
     
-def Previous_Accounting_Income():
+def Previous_Accounting_Income(reply_arr):
     previous_message = ""
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
     sheet = GoogleSheet.open_by_url(sheet_url)
