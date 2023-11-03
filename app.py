@@ -228,6 +228,7 @@ previous_dict={
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     global previous_message,GoogleSheet,timer
+    reply_arr = []
     message = event.message.text
     print("獲取資料 : ",message,type(message))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
@@ -242,11 +243,11 @@ def handle_message(event):
             print("Enter test")
         elif previous_message != "":
             selected_function = previous_dict[message]
-            result = selected_function(reply_arr)
+            reply_arr = selected_function(reply_arr)
             #previous_dict.get(message)
         else:
             selected_function = callback_dict[message]
-            result = selected_function(reply_arr)
+            reply_arr = selected_function(reply_arr)
             #callback_dict.get(message)  
     except Exception as e:      
         reply_arr=Reply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
