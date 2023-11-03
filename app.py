@@ -214,15 +214,15 @@ previous_dict={
 }
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global previous_message,reply_arr
+    global previous_message,reply_arr,GoogleSheet,timer
     message = event.message.text
     print("獲取資料 : ",message,type(message))
     #Google試算表教學網頁 https://www.wongwonggoods.com/all-posts/python/python_web_crawler/python-pygsheets/
-    global GoogleSheet = pygsheets.authorize(service_file = "linebotsheet.json")
+    GoogleSheet = pygsheets.authorize(service_file = "linebotsheet.json")
 
     #時間設定
     dt1 = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
-    global timer = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
+    timer = dt1.astimezone(datetime.timezone(datetime.timedelta(hours=8))) # 轉換時區 -> 東八區
     currentTime = timer.strftime("%Y-%m-%d %H:%M:%S")
     try:
         if message == 'test':
