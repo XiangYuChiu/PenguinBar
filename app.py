@@ -44,14 +44,17 @@ def Accounting_Expenses():
     options = MoneyReply.lastest_four_data(timer,GoogleSheet)
     ReturnData = MoneyReply.lastest_four_data(timer,GoogleSheet,3)
     reply_arr.append(Reply.create_dropdown_menu(options,ReturnData))  
+    return reply_arr
     
 def Accounting_Income():
     previous_message='記帳-收入'
     reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
     reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')    
+    return reply_arr
     
 def Accounting_Plan():
     reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
+    return reply_arr
     
 def Create_New_Accounting():
     Month = timer.strftime("%m")
@@ -62,6 +65,7 @@ def Create_New_Accounting():
     # 複製工作表
     copied_worksheet = spreadsheet.add_worksheet(str(int(Month))+"月預算",src_worksheet=original_worksheet, index=2)
     reply_arr=Reply.textReply(reply_arr,'建立新記帳Finish')
+    return reply_arr
     
 def Account_Balance():
     print("帳戶餘額")    
@@ -79,18 +83,22 @@ def Account_Balance():
     print(finial)
     reply_arr=Reply.textReply(reply_arr,finial)
     #reply_arr.append(Reply.creat_CarouselColumn(finial))
+    return reply_arr
 
 def Accounting_Category():
     result_str = finding_Money_data(timer,GoogleSheet,['K3:K11'])
     reply_arr=Reply.textReply(reply_arr,result_str)
+    return reply_arr
     
 def Accounting_Account():
     result_str = finding_Money_data(timer,GoogleSheet,['H2:H6'])
     reply_arr=Reply.textReply(reply_arr,result_str)
+    return reply_arr
     
 def Accounting_Format():
     result_str = finding_Money_data(timer,GoogleSheet,['C14:F14'])
     reply_arr=Reply.textReply(reply_arr,result_str)
+    return reply_arr
     
 def Remaining_Expenses_for_the_Month():
     expenses_remaining,RemaininGoogleSheetost=tool.month_lessmoney(timer,GoogleSheet)
@@ -100,6 +108,7 @@ def Remaining_Expenses_for_the_Month():
         reply_arr=Reply.textReply(reply_arr,"花太多錢啦!省錢一點")
     else:
         reply_arr=Reply.textReply(reply_arr,"沒有超支 繼續保持!")
+    return reply_arr
         
 def CreditCard_Charges_for_the_Month():
     LineBank=[]
@@ -120,6 +129,7 @@ def CreditCard_Charges_for_the_Month():
         DaHo.append(datasheet.cell('E12').value)
     reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(int(LineBank[0])+int(LineBank[1]))+"元")
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(int(DaHo[0])+int(DaHo[1]))+"元")
+    return reply_arr
     
 def Accounting_Statistics_for_this_Month():
     datasheet,Month = tool.MoneyGoogleSheet(timer,GoogleSheet)
@@ -136,12 +146,14 @@ def Accounting_Statistics_for_this_Month():
     DaHo=(datasheet.cell('I5').value)
     reply_arr=Reply.textReply(reply_arr,"LineBank信用卡 : "+str(LineBank)+"元")
     reply_arr=Reply.textReply(reply_arr,"永豐大戶信用卡 : "+str(DaHo)+"元")
+    return reply_arr
     
 def Automobile_and_Motorcycle_Format():
     datasheet = tool.MotorGoogleSheet(timer,GoogleSheet)
     range_of_cells = datasheet.get_values_batch( ['B6:E6'])
     result_str = tool.two_dimensional_list_intto_str(range_of_cells)
     reply_arr=Reply.textReply(reply_arr,result_str)
+    return reply_arr
     
 #===============================================================================
 def Previous_Accounting_Expenses():
@@ -174,6 +186,7 @@ def Previous_Accounting_Expenses():
             
     reply_arr=Reply.textReply(reply_arr,"本日預算 : "+str("{:.2f}".format(expenses_remaining))+"元\n今天伙食費剩下 : "+str("{:.2f}".format((expenses_remaining)-int(todayMoney)))+"元\n今天總花費"+str(todayMoney)+"元")
     reply_arr=Reply.textReply(reply_arr,"記帳成功")
+    return reply_arr
     
 def Previous_Accounting_Income():
     previous_message = ""
@@ -192,7 +205,7 @@ def Previous_Accounting_Income():
     except Exception as e:
         print("寫入GoogleSheet error: ",e)
     reply_arr=Reply.textReply(reply_arr,"新增收入\n錢包 : "+str(data_list[1])+"\nLineBank : "+str(data_list[2])+"\n郵局 : "+str(data_list[3])+"\n永豐 : "+str(data_list[4]))
-
+    return reply_arr
 #===============================================================================
 
 callback_dict={
@@ -229,9 +242,13 @@ def handle_message(event):
         if message == 'test':
             print("Enter test")
         elif previous_message != "":
-            previous_dict.get(message)
+            selected_function = previous_dict[message]
+            result = selected_function(reply_arr)
+            #previous_dict.get(message)
         else:
-            callback_dict.get(message)  
+            selected_function = callback_dict[message]
+            result = selected_function(reply_arr)
+            #callback_dict.get(message)  
     except Exception as e:      
         reply_arr=Reply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
