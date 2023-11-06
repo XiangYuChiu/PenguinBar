@@ -245,8 +245,8 @@ def handle_message(event):
             print("Enter test")
         elif previous_message != "":
             print("previous_message : ",previous_message)
-            selected_function = previous_dict[previous_message]
-            reply_arr = selected_function(reply_arr,message)
+            previous_selected_function = previous_dict[previous_message]
+            reply_arr = previous_selected_function(reply_arr,message)
             #previous_dict.get(message)
         else:
             print("message : ",message)
