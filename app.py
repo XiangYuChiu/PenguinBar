@@ -155,10 +155,10 @@ def Automobile_and_Motorcycle_Format(reply_arr):
     return reply_arr
     
 #===============================================================================
-def Previous_Accounting_Expenses(reply_arr):
+def Previous_Accounting_Expenses(reply_arr,message):
     print("進入支出紀錄")
     previous_message = ""
-    data_list = event.message.text.split(' ')
+    data_list = message.split(' ')
     try:
         outputtype = data_list[0]
         account = data_list[1]
@@ -188,7 +188,7 @@ def Previous_Accounting_Expenses(reply_arr):
     reply_arr=Reply.textReply(reply_arr,"記帳成功")
     return reply_arr
     
-def Previous_Accounting_Income(reply_arr):
+def Previous_Accounting_Income(reply_arr,message):
     print("進入收入紀錄")
     previous_message = ""
     sheet_url = "https://docs.google.com/spreadsheets/d/1jnKkUIegnTrr1nA-fCCp9i-sOoiB3_of1Ry5uwUFSvI/edit#gid=1747979925/"
@@ -198,7 +198,7 @@ def Previous_Accounting_Income(reply_arr):
     except:
         print("沒有獲取到資料表")
         datasheet = sheet[0]
-    data_list = event.message.text.split(' ')     
+    data_list = message.split(' ')     
     values = [timer.strftime("%m/%d")+str(data_list[0]),"收入"]+data_list[1:len(data_list)]
     try:
         A_column_values = datasheet.get_col(1, returnas='matrix', include_tailing_empty=False)
@@ -245,7 +245,7 @@ def handle_message(event):
             print("Enter test")
         elif previous_message != "":
             selected_function = previous_dict[message]
-            reply_arr = selected_function(reply_arr)
+            reply_arr = selected_function(reply_arr,message)
             #previous_dict.get(message)
         else:
             selected_function = callback_dict[message]
