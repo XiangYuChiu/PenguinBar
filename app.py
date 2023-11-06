@@ -231,7 +231,7 @@ previous_dict={
 }
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global GoogleSheet,timer
+    global GoogleSheet,timer,currentTime
     reply_arr = []
     message = event.message.text
     print("獲取資料 : ",message,type(message))
