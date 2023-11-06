@@ -244,10 +244,12 @@ def handle_message(event):
         if message == 'test':
             print("Enter test")
         elif previous_message != "":
+            print("previous_message : ",previous_message)
             selected_function = previous_dict[previous_message]
             reply_arr = selected_function(reply_arr,message)
             #previous_dict.get(message)
         else:
+            print("message : ",message)
             selected_function = callback_dict[message]
             reply_arr = selected_function(reply_arr)
             #callback_dict.get(message)  
