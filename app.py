@@ -54,7 +54,7 @@ def Accounting_Income(reply_arr):
     return reply_arr
     
 def Accounting_Plan(reply_arr):
-    reply_arr.append(Reply.creat_CarouselColumn(['建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
+    reply_arr.append(Reply.creat_CarouselColumn(['test','建立新記帳','帳戶餘額','記帳類別','記帳帳號','記帳格式','當月剩餘費用','當月信用卡費用','本月記帳統計']))
     return reply_arr
     
 def Create_New_Accounting(reply_arr):
@@ -245,6 +245,9 @@ def handle_message(event):
     try:
         if message == 'test':
             print("Enter test")
+        elif message =='結束記帳':
+            global previous_message
+            previous_message = ""
         elif previous_message != "":
             print("previous_message : ",previous_message)
             previous_selected_function = previous_dict[previous_message]
@@ -259,7 +262,7 @@ def handle_message(event):
         reply_arr=Reply.textReply(reply_arr,"小企鵝壞掉了Q_Q \n原因 : "+str(e))   
         
     if message != ('記帳-計畫') and message !=('記帳-支出'):  
-        reply_arr.append(Reply.create_dropdown_menu(['記帳-支出','記帳-收入','記帳-計畫','test']))
+        reply_arr.append(Reply.create_dropdown_menu(['記帳-支出','記帳-收入','結束記帳','test']))
     line_bot_api.reply_message(event.reply_token,reply_arr)     #LINE BOT回復訊息
 
 import os
