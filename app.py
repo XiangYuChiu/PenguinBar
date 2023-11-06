@@ -37,6 +37,7 @@ previous_message = ""#記憶以前的訊息
 expenses_remaining=""
 
 def Accounting_Expenses(reply_arr):
+    global previous_message
     print("進入記帳-支出模式")
     reply_arr=Reply.textReply(reply_arr,'進入記帳-支出模式')
     previous_message='記帳-支出'
@@ -46,6 +47,7 @@ def Accounting_Expenses(reply_arr):
     return reply_arr
     
 def Accounting_Income(reply_arr):
+    global previous_message
     previous_message='記帳-收入'
     reply_arr=Reply.textReply(reply_arr,'進入記帳-收入模式')
     reply_arr=Reply.textReply(reply_arr,'內容 錢包金額 LineBoank金額 郵局金額 永豐金額')    
@@ -229,7 +231,7 @@ previous_dict={
 }
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global previous_message,GoogleSheet,timer
+    global GoogleSheet,timer
     reply_arr = []
     message = event.message.text
     print("獲取資料 : ",message,type(message))
